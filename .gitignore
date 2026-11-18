@@ -6,5 +6,5 @@ __pycache__/
 *.pyc
 
 # Archivos generados (opcional si se generen al ejecutar)
-figuras/
-*.png
+#figuras/
+#*.png

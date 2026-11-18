@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 from linac_design import design_linac
 from physics import C_LIGHT, M_PROTON_MEV, get_beta, get_gamma
@@ -115,7 +116,8 @@ def plot_synchrotron_results(delta_phi_deg, mu_theory_deg, mu_sim_deg):
     ax2.legend(loc="upper right")
 
     plt.tight_layout()
-    plt.savefig("fig_sincrotron.png", dpi=300)
+    os.makedirs("../LINAC ALVAREZ/figuras", exist_ok=True)
+    plt.savefig("../LINAC ALVAREZ/figuras/fig_sincrotron.png", dpi=300)
     print("Gráfica guardada como 'fig_sincrotron.png'")
     plt.show()
 

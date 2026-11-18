@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from physics import get_beta, get_gamma
+from src.physics import get_beta, get_gamma
 
 # Energía inicial de inyección del informe (3 MeV)
 T_in = 3.0

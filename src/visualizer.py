@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+
 
 from linac_design import design_linac
 from tracking import generate_particle_bunch, track_bunch
@@ -43,17 +45,17 @@ def plot_phase_space(
     ax1.axvline(0, color="black", linestyle="--", linewidth=0.8, alpha=0.7)
     ax1.set_title(
         r"Entrada ($T_0 = 3.0$ MeV)", fontsize=12, fontweight="bold"
-    )  #[cite: 10]
+    )
     ax1.set_xlabel(r"Desviación de fase $\Delta\phi$ (grados)", fontsize=11)
     ax1.set_ylabel(
         r"Desviación de energía $\Delta T$ (keV)", fontsize=11
-    )  #[cite: 19]
+    ) 
     ax1.set_xlim(-60, 60)
     ax1.set_ylim(-1000, 1000)
     ax1.grid(True, linestyle=":", alpha=0.6)
     ax1.legend(loc="upper right")
 
-    # Visualización en la salida (Compresión adiabática de fase)[cite: 18, 19]
+    # Visualización en la salida (Compresión adiabática de fase)
     ax2.scatter(
         delta_phi_final,
         delta_T_final,
@@ -85,12 +87,14 @@ def plot_phase_space(
         f" {phi_s_deg}^\circ$)",
         fontsize=13,
         fontweight="bold",
-    )  #[cite: 10, 19]
+    )
     plt.tight_layout()
 
     if save_fig:
-        plt.savefig(filename, dpi=300)
-        print(f"Gráfica guardada correctamente como '{filename}'")
+        os.makedirs("../LINAC ALVAREZ/figuras", exist_ok=True)
+        filepath = os.path.join("../LINAC ALVAREZ/figuras", filename)
+        plt.savefig(filepath, dpi=300)
+        print(f"Gráfica guardada correctamente como '{filepath}'")
 
     plt.show()
 
@@ -128,14 +132,16 @@ def plot_cell_lengths(
     plt.tight_layout()
 
     if save_fig:
-        plt.savefig(filename, dpi=300)
-        print(f"Gráfica guardada correctamente como '{filename}'")
+        os.makedirs("../LINAC ALVAREZ/figuras", exist_ok=True)
+        filepath = os.path.join("../LINAC ALVAREZ/figuras", filename)
+        plt.savefig(filepath, dpi=300)
+        print(f"Gráfica guardada correctamente como '{filepath}'")
 
     plt.show()
 
 
 if __name__ == "__main__":
-    # 1. Obtener datos de la simulación de referencia[cite: 10]
+    # 1. Obtener datos de la simulación de referencia
     cell_lengths, T_sync, _ = design_linac(phi_s_deg=-30.0)
     T0_bunch, phi0_bunch = generate_particle_bunch(
         phi_s_deg=-30.0, seed=20261919

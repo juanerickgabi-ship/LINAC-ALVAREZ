@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 from linac_design import design_linac
 from tracking import generate_particle_bunch, track_bunch
@@ -131,7 +132,8 @@ def plot_rf_error_results(results):
     ax2.grid(True, linestyle=":", alpha=0.6)
 
     plt.tight_layout()
-    plt.savefig("fig_error_frecuencia.png", dpi=300)
+    os.makedirs("../LINAC ALVAREZ/figuras", exist_ok=True)
+    plt.savefig("../LINAC ALVAREZ/figuras/fig_error_frecuencia.png", dpi=300)
     print("\nGráfica guardada como 'fig_error_frecuencia.png'")
     plt.show()
 

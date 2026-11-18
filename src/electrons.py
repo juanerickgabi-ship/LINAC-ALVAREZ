@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 from physics import C_LIGHT, M_ELECTRON_MEV, get_beta
 from tracking import track_bunch
@@ -93,7 +94,8 @@ def plot_electron_results(hist_T, hist_phi, initial_phases_deg):
     ax2.legend(loc="lower left")
 
     plt.tight_layout()
-    plt.savefig("fig_electrones.png", dpi=300)
+    os.makedirs("../LINAC ALVAREZ/figuras", exist_ok=True)
+    plt.savefig("../LINAC ALVAREZ/figuras/fig_electrones.png", dpi=300)
     print("\nGráfica guardada como 'fig_electrones.png'")
     plt.show()
 
