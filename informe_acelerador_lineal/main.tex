@@ -1,0 +1,107 @@
+\documentclass[12pt,letterpaper,oneside,openany]{report}
+
+\input{paquetes.tex}
+
+\addbibresource{bibliografia.bib}
+
+\begin{document}
+
+\selectlanguage{spanish}
+
+% ============================================================
+% PORTADA
+% ============================================================
+
+\pagenumbering{roman}
+
+\input{capitulos/00_portada.tex}
+
+\clearpage
+
+
+
+\pagestyle{empty}
+
+\input{capitulos/01_resumen.tex}
+
+\clearpage
+
+
+\pagestyle{fancy}
+
+\tableofcontents
+
+\clearpage
+
+% ============================================================
+% CUERPO DEL INFORME
+% NUMERACIÓN ARÁBIGA DESDE 1
+% ============================================================
+
+\pagenumbering{arabic}
+
+% CAPÍTULO 1
+ \input{capitulos/02_introduccion.tex}
+
+% % CAPÍTULO 2
+ \input{capitulos/03_objetivos.tex}
+
+% % CAPÍTULO 3
+% \input{capitulos/04_fundamento_teorico.tex}
+
+% % CAPÍTULO 4
+ \input{capitulos/05_modelo_matematico.tex}
+
+% % CAPÍTULO 5
+% \input{capitulos/06_metodologia.tex}
+
+% % CAPÍTULO 6
+% \input{capitulos/07_desarrollo_computacional.tex}
+
+% % CAPÍTULO 7
+ \input{capitulos/08_resultados.tex}
+
+% % CAPÍTULO 8
+ \input{capitulos/09_analisis_discusion.tex}
+
+
+% ============================================================
+% REFERENCIAS
+% ============================================================
+
+\clearpage
+
+\printbibliography[
+    heading=bibintoc,
+    title={Referencias}
+]
+
+% ============================================================
+% APÉNDICES
+% ============================================================
+
+\appendix
+
+% APÉNDICE A: CÓDIGO PYTHON
+
+\clearpage
+
+\chapter*{Apéndice A}
+
+\addcontentsline{toc}{chapter}{Apéndice A. Código fuente}
+
+\begin{center}
+    \bfseries Código fuente
+\end{center}
+
+\lstinputlisting[
+    style=pythonAPA,
+    caption={Código fuente del proyecto},
+    label={lst:codigo-python}
+]{Apendices/codigo.py}
+
+% APÉNDICE B: DATOS COMPLEMENTARIOS
+
+\input{Apendices/datos.tex}
+
+\end{document}

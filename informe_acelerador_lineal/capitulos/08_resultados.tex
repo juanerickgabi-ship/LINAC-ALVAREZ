@@ -1,0 +1,133 @@
+\chapter{Resultados}
+
+\section{Diseño de la estructura aceleradora}
+
+Para una fase síncrona de $\phi_s=-30^\circ$, la partícula de referencia experimenta una ganancia energética de aproximadamente
+$0.866\,\mathrm{MeV}$ por brecha de aceleración. A partir de la condición de sincronismo y del procedimiento iterativo de diseño, se obtiene una estructura de 55 celdas, con una longitud total de $10.59\,\mathrm{m}$.
+
+Las longitudes de las celdas aumentan progresivamente desde aproximadamente $7.7\,\mathrm{cm}$ hasta $26.9\,\mathrm{cm}$, en correspondencia con el incremento de la velocidad relativista de los protones. Este comportamiento concuerda con la condición de sincronismo $L_n=\beta_{s,n+1}\lambda$, según la cual la longitud de cada celda depende de la velocidad de la partícula síncrona después de atravesar la brecha anterior.
+
+La energía cinética final obtenida mediante las 55 etapas de aceleración es aproximadamente $50.63\,\mathrm{MeV}$, valor ligeramente superior a la energía objetivo de $50\,\mathrm{MeV}$. Esta diferencia se debe a que el proceso de aceleración se realiza mediante un número entero de brechas.
+
+El gradiente energético nominal, calculado a partir del incremento objetivo de $47\,\mathrm{MeV}$ y la longitud total de la estructura, es aproximadamente $4.44\,\mathrm{MeV/m}$.
+
+La figura~\ref{fig:fig01_diseno} presenta la evolución de la energía cinética de la partícula síncrona y las longitudes correspondientes a las celdas del acelerador.
+
+\subsection{Influencia de la fase síncrona en el diseño}
+
+La fase síncrona determina la ganancia energética por brecha y, simultáneamente, las condiciones de estabilidad longitudinal. Para evaluar su influencia se realizaron diseños independientes utilizando diferentes valores de fase.
+
+Los resultados muestran que, para $\phi_s=-60^\circ$, se requieren 94 celdas, mientras que para $\phi_s=0^\circ$ se necesitan 47 celdas. Esta diferencia se explica por la dependencia de la ganancia energética respecto a $\cos(\phi_s)$.
+
+En particular, las fases más alejadas de la cresta proporcionan una menor ganancia energética por brecha. Por tanto, se requiere un mayor número de etapas para alcanzar la misma energía objetivo.
+
+\section{Estabilidad longitudinal del paquete de partículas}
+
+La evolución longitudinal del paquete se estudia mediante su distribución en el espacio de fases $(\Delta\phi,\Delta T)$. Para la configuración de referencia, correspondiente a $\phi_s=-30^\circ$, las partículas presentan oscilaciones alrededor de la trayectoria de la partícula síncrona.
+
+Al finalizar la aceleración, la dispersión de fase disminuye de $15.0^\circ$ a $5.3^\circ$, mientras que la dispersión de energía alcanza aproximadamente $282\,\mathrm{keV}$. Este comportamiento es consistente con el amortiguamiento adiabático asociado al incremento de la energía de las partículas durante el proceso de aceleración.
+
+De acuerdo con el criterio de captura establecido, el \SI{99.3}{\percent} del paquete permanece dentro de la ventana angular de $|\Delta\phi|<60^\circ$ al finalizar la estructura.
+
+La tabla~\ref{tab:estabilidad} presenta los resultados obtenidos para las diferentes fases síncronas consideradas.
+
+\begin{table}[H]
+\centering
+\caption{Comportamiento longitudinal del paquete para diferentes fases síncronas.}
+\label{tab:estabilidad}
+\small
+\begin{tabular}{lccccc}
+\toprule
+$\phi_s$ ($^\circ$) &
+Celdas &
+Agrupadas (\%) &
+Energía final (\%) &
+$\sigma_\phi$ ($^\circ$) &
+$\sigma_T$ (keV) \\
+\midrule
+-60 & 94 & 100.0 & 99.6 & 7.4 & 155 \\
+-30 & 55 & 99.3 & 99.2 & 5.3 & 282 \\
+-15 & 49 & 88.9 & 88.9 & 5.0 & 122 \\
+0   & 47 & 26.8 & 24.1 & 14.4 & 457 \\
++30 & 55 & 41.4 & 45.9 & 6.8 & 547 \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\begin{minipage}{0.95\linewidth}
+\footnotesize
+Se consideraron $3000$ protones con una dispersión inicial de fase de $15^\circ$ y una dispersión relativa inicial de energía de \SI{0.5}{\percent}. Los diseños de las celdas se determinaron independientemente para cada fase síncrona. La columna de partículas agrupadas corresponde al criterio $|\Delta\phi|<60^\circ$, mientras que la energía final se evalúa mediante la tolerancia energética establecida en el método numérico.
+\end{minipage}
+\end{table}
+
+Los resultados evidencian diferencias importantes en el comportamiento longitudinal dependiendo de la fase síncrona. Para $\phi_s=-60^\circ$ se obtiene la mayor fracción de partículas agrupadas, con un $100.0\,\%$, aunque se requiere una estructura considerablemente más larga.
+
+Para $\phi_s=-15^\circ$, la dispersión final de fase es de $5.0^\circ$, pero la fracción de partículas agrupadas disminuye al $88.9\,\%$. Por otra parte, en la cresta de radiofrecuencia ($\phi_s=0^\circ$), la ausencia de una fuerza restauradora longitudinal de primer orden se refleja en una menor capacidad de mantener el paquete concentrado alrededor de la fase de referencia.
+
+Para $\phi_s=+30^\circ$, la fase síncrona de diseño se encuentra fuera del intervalo de estabilidad lineal para protones. No obstante, la simulación muestra que una fracción del paquete evoluciona hacia regiones de fase distintas de la trayectoria de referencia, alcanzando una fracción de energía final del $45.9\,\%$. Este resultado debe interpretarse como una evolución no lineal del paquete y no como estabilidad de la fase síncrona inicialmente seleccionada.
+
+La figura~\ref{fig:fig02_espacio_fases} presenta la distribución longitudinal del paquete para las configuraciones de referencia y para la fase positiva.
+
+\section{Oscilaciones de sincrotrón}
+
+Para estudiar las oscilaciones longitudinales se realizó el seguimiento de una partícula con una desviación inicial de fase de $3^\circ$ respecto a la partícula síncrona.
+
+La evolución de la desviación de fase muestra un comportamiento oscilatorio alrededor de la trayectoria de referencia. A partir de los cruces por cero consecutivos se obtiene un avance de fase numérico de aproximadamente $25.7^\circ$ por celda en la región analizada, mientras que la predicción teórica correspondiente es de $26.4^\circ$ por celda.
+
+La diferencia entre ambos valores es pequeña y resulta compatible con las limitaciones de resolución del procedimiento numérico utilizado para estimar el avance de fase a partir de posiciones discretas.
+
+Adicionalmente, el avance de fase teórico disminuye desde aproximadamente $41.4^\circ$ hasta $9.8^\circ$ por celda a medida que aumenta la energía cinética de la partícula síncrona. Esta tendencia se encuentra asociada al incremento del factor relativista $\beta^2\gamma^3$ presente en el denominador de la expresión teórica.
+
+Por otra parte, la amplitud de la desviación de fase disminuye desde $3.0^\circ$ hasta aproximadamente $1.39^\circ$. Esta reducción es consistente con el amortiguamiento adiabático de las oscilaciones longitudinales durante la aceleración.
+
+La evolución de la amplitud presenta un comportamiento del orden de la dependencia $(\beta\gamma)^{-3/4}$. Entre las energías inicial y final consideradas, esta relación predice un factor aproximado de $0.35$, mientras que la simulación proporciona un factor de $0.46$. La diferencia puede estar relacionada con la evolución discreta de la oscilación y con la fase en la que se evalúa la amplitud en la última celda.
+
+La figura~\ref{fig:fig03_sincrotron} muestra la evolución de la desviación de fase y la comparación entre el avance de fase teórico y el obtenido numéricamente.
+
+\section{Sensibilidad a errores de frecuencia y comparación con electrones}
+
+\subsection{Efecto de los errores en la frecuencia de RF}
+
+Para analizar la sensibilidad del acelerador frente a variaciones de frecuencia, se realizaron simulaciones utilizando diferentes valores del error relativo $\epsilon_f$, manteniendo las longitudes de las celdas correspondientes al diseño nominal.
+
+Los resultados muestran que las variaciones de frecuencia producen desplazamientos acumulativos de fase durante el tránsito por la estructura. Para un error relativo del \SI{1}{\percent}, el desplazamiento medio reportado es de $5.1^\circ$ y la energía cinética media final alcanza $51.69\,\mathrm{MeV}$, conservándose una fracción de partículas agrupadas del \SI{98.1}{\percent}.
+
+Cuando el error aumenta al \SI{2}{\percent}, la fracción de partículas agrupadas disminuye al \SI{94.5}{\percent}. Para un error del \SI{4}{\percent}, esta fracción se reduce al \SI{55.5}{\percent}, lo que evidencia una mayor sensibilidad del paquete frente a desviaciones de la frecuencia nominal.
+
+La tabla~\ref{tab:errorf} resume los resultados obtenidos.
+
+\begin{table}[H]
+\centering
+\caption{Efecto de las variaciones de frecuencia de radiofrecuencia sobre el paquete de protones.}
+\label{tab:errorf}
+\small
+\begin{tabular}{lccc}
+\toprule
+Error de frecuencia (\%) &
+Partículas agrupadas (\%) &
+$\langle T\rangle$ final (MeV) &
+Desplazamiento de fase ($^\circ$) \\
+\midrule
+0.0 & 99.3 & 50.64 & 0.6 \\
+0.2 & 99.0 & 50.86 & 1.4 \\
+0.5 & 99.0 & 51.18 & 2.9 \\
+1.0 & 98.1 & 51.69 & 5.1 \\
+2.0 & 94.5 & 52.66 & 7.4 \\
+4.0 & 55.5 & 55.50 & 10.7 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Se observa que el incremento del error de frecuencia modifica tanto la distribución longitudinal como la energía media final del paquete. En particular, las diferencias entre las energías obtenidas y el valor nominal de diseño evidencian que el sincronismo depende de la frecuencia de operación del sistema.
+
+\subsection{Comportamiento longitudinal de electrones}
+
+Finalmente, se estudió el comportamiento de electrones con una energía cinética inicial de $10\,\mathrm{MeV}$ en una estructura de 60 celdas de longitud constante, aproximada por $\lambda$.
+
+Para esta configuración, los electrones presentan inicialmente un factor de Lorentz de aproximadamente $20.57$ y una velocidad normalizada de $\beta_0\approx0.9988$. Por tanto, desde la inyección se encuentran en un régimen altamente relativista.
+
+Los resultados de la simulación muestran que, para una inyección en la cresta de radiofrecuencia, la energía cinética final alcanza aproximadamente $69.92\,\mathrm{MeV}$. La fase experimenta una deriva total de aproximadamente $3.6^\circ$ a lo largo de la estructura, lo que evidencia que la velocidad próxima a la de la luz reduce significativamente la variación de fase durante el tránsito por las celdas.
+
+Para las demás fases de inyección se observan diferencias en la energía final, debido a la dependencia de la ganancia energética respecto a la fase de llegada. En particular, una inyección con una fase de $40^\circ$ produce una energía final de aproximadamente $53.55\,\mathrm{MeV}$, de acuerdo con la menor ganancia energética asociada al factor $\cos(40^\circ)$.
+
+La figura~\ref{fig:fig04_estabilidad_electrones} presenta los resultados correspondientes a la sensibilidad de la estabilidad longitudinal, las variaciones de frecuencia y la evolución de la energía de los electrones para diferentes fases de inyección.

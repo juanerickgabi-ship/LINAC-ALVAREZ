@@ -1,0 +1,485 @@
+\chapter{Método numérico}
+
+\section{Parámetros y condiciones iniciales}
+
+Para desarrollar las simulaciones numéricas se establecieron los parámetros físicos y computacionales del acelerador, definidos en el archivo \texttt{parametros.json}. El sistema considerado corresponde a un acelerador lineal de protones con estructura de tubos de deriva tipo Alvarez, diseñado para incrementar la energía cinética de las partículas desde un valor inicial de $3\,\mathrm{MeV}$ hasta una energía objetivo de $50\,\mathrm{MeV}$.
+
+La frecuencia nominal del campo de radiofrecuencia se establece en
+$f_{\mathrm{RF}}=352.2\,\mathrm{MHz}$, mientras que la amplitud de la tensión de aceleración por brecha corresponde a
+$qV_{\mathrm{gap}}=1.0\,\mathrm{MeV}$.
+La fase síncrona de referencia se fija en
+$\phi_s=-30^\circ$.
+
+La ganancia energética de la partícula síncrona en cada brecha está determinada por
+
+\begin{equation}
+    \Delta T_s=qV_{\mathrm{gap}}\cos(\phi_s).
+\end{equation}
+
+Para los parámetros seleccionados, se obtiene
+
+\begin{equation}
+    \Delta T_s
+    =1.0\cos(-30^\circ)
+    \approx 0.866\,\mathrm{MeV}.
+\end{equation}
+
+La longitud de onda asociada a la frecuencia de operación se calcula mediante
+
+\begin{equation}
+    \lambda=\frac{c}{f_{\mathrm{RF}}},
+\end{equation}
+
+donde $c$ representa la velocidad de la luz en el vacío. Para la frecuencia considerada se obtiene
+
+\begin{equation}
+    \lambda\approx0.8512\,\mathrm{m}.
+\end{equation}
+
+Para estudiar la dinámica longitudinal se considera un paquete de
+$N_p=3000$ protones. Las condiciones iniciales se generan introduciendo dispersiones aleatorias en la fase y en la energía cinética respecto a la partícula síncrona.
+
+La desviación inicial de fase se modela mediante una distribución normal de media cero y desviación estándar $\sigma_\phi=15^\circ$:
+
+\begin{equation}
+    \delta\phi_{i,0}\sim
+    \mathcal{N}(0,\sigma_\phi^2).
+\end{equation}
+
+Por su parte, la desviación inicial de energía se define mediante
+
+\begin{equation}
+    \delta T_{i,0}\sim
+    \mathcal{N}(0,\sigma_T^2),
+\end{equation}
+
+con
+
+\begin{equation}
+    \sigma_T=0.005T_0.
+\end{equation}
+
+En consecuencia, las condiciones iniciales de cada partícula $i$ están dadas por
+
+\begin{equation}
+    \phi_{i,0}=\phi_s+\delta\phi_{i,0},
+\end{equation}
+
+\begin{equation}
+    T_{i,0}=T_0+\delta T_{i,0}.
+\end{equation}
+
+Las variables aleatorias utilizadas para generar ambas distribuciones se consideran independientes. Se establece una semilla aleatoria de $20261919$ para garantizar la reproducibilidad de las condiciones iniciales y de los resultados estadísticos de las simulaciones.
+
+Además del caso de referencia, se estudian las fases síncronas
+$-60^\circ$, $-15^\circ$, $0^\circ$ y $+30^\circ$, con el propósito de analizar la influencia de la fase de operación sobre la dinámica longitudinal del paquete.
+
+Para estudiar la sensibilidad del acelerador frente a variaciones de la frecuencia de radiofrecuencia, se consideran los errores relativos
+
+\begin{equation}
+    \epsilon_f=
+    \{0,\;0.002,\;0.005,\;0.01,\;0.02,\;0.04\},
+\end{equation}
+
+correspondientes a variaciones de $0\%$, $0.2\%$, $0.5\%$,
+$1\%$, $2\%$ y $4\%$, respectivamente.
+
+Finalmente, se incorpora un caso de comparación con electrones, para el cual se establece una energía cinética inicial de
+$10\,\mathrm{MeV}$ y una estructura de 60 celdas. Este caso permite estudiar la evolución de fase de partículas que se encuentran desde su inyección en un régimen altamente relativista.
+
+\subsection{Discretización de la dinámica longitudinal}
+
+La evolución longitudinal de las partículas se modela mediante un procedimiento discreto que considera cada brecha de aceleración como una etapa del proceso. De esta manera, la dinámica se representa mediante ecuaciones en diferencias que permiten determinar la energía cinética, la velocidad relativista y la fase de cada partícula después de atravesar sucesivamente las celdas del acelerador.
+
+El modelo considera dos variables dinámicas principales: la energía cinética $T_{i,n}$ y la fase de radiofrecuencia $\phi_{i,n}$, donde el subíndice $i$ identifica la partícula y $n$ representa la etapa de aceleración.
+
+\subsubsection*{Actualización de la energía cinética}
+
+La ganancia de energía de una partícula depende de la fase con la que llega a la brecha de aceleración. Por tanto, la energía cinética después de atravesar la brecha se determina mediante
+
+\begin{equation}
+    T_{i,n+1}
+    =
+    T_{i,n}
+    +
+    qV_{\mathrm{gap}}\cos(\phi_{i,n}).
+\end{equation}
+
+Esta expresión se aplica individualmente a cada partícula. En consecuencia, las diferencias iniciales de fase producen ganancias energéticas distintas, modificando progresivamente la distribución de energía del paquete.
+
+\subsubsection*{Cálculo de la velocidad relativista}
+
+Una vez actualizada la energía cinética, se determina la velocidad de cada partícula mediante las relaciones relativistas.
+
+El factor de Lorentz se calcula como
+
+\begin{equation}
+    \gamma_{i,n+1}
+    =
+    1+\frac{T_{i,n+1}}{mc^2},
+\end{equation}
+
+mientras que el parámetro de velocidad está dado por
+
+\begin{equation}
+    \beta_{i,n+1}
+    =
+    \sqrt{1-\frac{1}{\gamma_{i,n+1}^{2}}}.
+\end{equation}
+
+Por consiguiente, la velocidad correspondiente a la nueva energía cinética es
+
+\begin{equation}
+    v_{i,n+1}=\beta_{i,n+1}c.
+\end{equation}
+
+Este procedimiento permite incorporar los efectos relativistas asociados al incremento de energía durante el proceso de aceleración.
+
+\subsubsection*{Actualización de la fase}
+
+La evolución de la fase depende del tiempo que tarda cada partícula en recorrer la longitud de una celda. Considerando que la velocidad calculada después de atravesar la brecha se utiliza para describir el tránsito por toda la celda, el tiempo de recorrido se aproxima mediante
+
+\begin{equation}
+    \Delta t_{i,n}
+    =
+    \frac{L_n}{\beta_{i,n+1}c}.
+\end{equation}
+
+La fase de radiofrecuencia se actualiza de acuerdo con
+
+\begin{equation}
+    \boxed{
+    \phi_{i,n+1}
+    =
+    \phi_{i,n}
+    +
+    \omega\Delta t_{i,n}
+    -
+    2\pi
+    }
+\end{equation}
+
+donde $\omega=2\pi f_{\mathrm{RF}}$ representa la frecuencia angular nominal.
+
+El término $2\pi$ se resta para expresar el cambio de fase respecto al avance de un período completo de radiofrecuencia entre brechas consecutivas.
+
+Para la partícula síncrona, la condición de sincronismo establece que la longitud de cada celda satisface
+
+\begin{equation}
+    L_n=\beta_{s,n+1}\lambda,
+\end{equation}
+
+donde $\beta_{s,n+1}$ corresponde al parámetro de velocidad de la partícula síncrona después de recibir la ganancia energética en la brecha.
+
+En consecuencia, su tiempo de tránsito es
+
+\begin{equation}
+    \Delta t_s
+    =
+    \frac{\beta_{s,n+1}\lambda}
+    {\beta_{s,n+1}c}
+    =
+    \frac{1}{f_{\mathrm{RF}}}.
+\end{equation}
+
+Por tanto, el avance de fase durante el tránsito corresponde a $2\pi$, de modo que la fase relativa de la partícula síncrona permanece constante de una brecha a la siguiente.
+
+\subsection{Diseño de la estructura aceleradora}
+
+El diseño longitudinal del acelerador se realiza mediante un procedimiento iterativo que determina la longitud de cada celda a partir de la energía cinética de la partícula síncrona.
+
+El propósito es garantizar que el tiempo de tránsito entre dos brechas consecutivas corresponda a un período de la señal de radiofrecuencia, conservando así la condición de sincronismo.
+
+Inicialmente se establecen la energía cinética de entrada $T_0$, la energía objetivo $T_f$, la amplitud de tensión $qV_{\mathrm{gap}}$, la fase síncrona $\phi_s$, la masa en reposo $m$ y la longitud de onda $\lambda$.
+
+\subsubsection*{Evolución energética de la partícula síncrona}
+
+Se considera que la partícula de referencia atraviesa cada brecha con una fase constante $\phi_s$. Por tanto, su energía cinética evoluciona de acuerdo con
+
+\begin{equation}
+    T_{s,n+1}
+    =
+    T_{s,n}
+    +
+    qV_{\mathrm{gap}}\cos(\phi_s).
+\end{equation}
+
+Para una fase síncrona constante, la ganancia energética por brecha también permanece constante.
+
+\subsubsection*{Determinación de las longitudes de celda}
+
+Una vez calculada la energía cinética después de cada brecha, se determina el factor de Lorentz de la partícula síncrona:
+
+\begin{equation}
+    \gamma_{s,n+1}
+    =
+    1+\frac{T_{s,n+1}}{mc^2}.
+\end{equation}
+
+A partir de este resultado se obtiene el parámetro de velocidad:
+
+\begin{equation}
+    \beta_{s,n+1}
+    =
+    \sqrt{1-\frac{1}{\gamma_{s,n+1}^{2}}}.
+\end{equation}
+
+La condición de sincronismo requiere que el tiempo de tránsito entre brechas consecutivas sea igual al período de radiofrecuencia:
+
+\begin{equation}
+    \Delta t_s=\frac{1}{f_{\mathrm{RF}}}.
+\end{equation}
+
+Como la distancia recorrida corresponde a $L_n=v_{s,n+1}\Delta t_s$, se obtiene
+
+\begin{equation}
+    L_n=\frac{\beta_{s,n+1}c}{f_{\mathrm{RF}}}.
+\end{equation}
+
+Finalmente, utilizando $\lambda=c/f_{\mathrm{RF}}$, la longitud de cada celda queda determinada por
+
+\begin{equation}
+    \boxed{
+    L_n=\beta_{s,n+1}\lambda
+    }.
+\end{equation}
+
+De esta manera, las longitudes de las celdas aumentan conforme se incrementa la velocidad de la partícula síncrona.
+
+\subsubsection*{Procedimiento iterativo de diseño}
+
+El algoritmo comienza con la energía cinética inicial y repite el cálculo de la ganancia energética, la velocidad relativista y la longitud de celda hasta alcanzar o superar la energía objetivo:
+
+\begin{equation}
+    T_{s,n+1}\geq T_f.
+\end{equation}
+
+En cada iteración se almacenan la energía cinética y la longitud calculada. Se establece además un número máximo de iteraciones como condición de seguridad computacional.
+
+Debido a que el número de brechas es discreto, la energía final obtenida puede superar ligeramente el valor objetivo establecido. Esta diferencia se conserva en el análisis de resultados y se identifica como consecuencia de la discretización del proceso de aceleración.
+
+\subsection{Seguimiento del paquete de partículas}
+
+Una vez determinadas las longitudes de las celdas, se realiza el seguimiento individual de las partículas del paquete. A diferencia del procedimiento de diseño, que considera exclusivamente la partícula síncrona, este algoritmo incorpora las diferencias iniciales de energía y fase.
+
+Para cada partícula $i$, se aplican sucesivamente las ecuaciones de actualización de energía, velocidad relativista y fase descritas anteriormente.
+
+El procedimiento se repite a lo largo de todas las celdas, almacenando las trayectorias de energía y fase para su posterior análisis.
+
+\subsubsection*{Criterios de captura longitudinal}
+
+Para evaluar la evolución del paquete respecto a la partícula síncrona, se definen las desviaciones de energía y fase:
+
+\begin{equation}
+    \Delta T_{i,n}
+    =
+    T_{i,n}-T_{s,n},
+\end{equation}
+
+\begin{equation}
+    \Delta\phi_{i,n}
+    =
+    \phi_{i,n}-\phi_s.
+\end{equation}
+
+Al finalizar la simulación, se considera que una partícula satisface el criterio de agrupamiento longitudinal cuando
+
+\begin{equation}
+    |\Delta\phi_{i,N_c}|<60^\circ,
+\end{equation}
+
+donde $N_c$ representa el número total de celdas.
+
+El porcentaje de partículas que cumple esta condición se calcula mediante
+
+\begin{equation}
+    P_{\mathrm{cap}}
+    =
+    \frac{N_{\mathrm{cap}}}{N_p}\times100\%,
+\end{equation}
+
+donde $N_{\mathrm{cap}}$ corresponde al número de partículas que satisface el criterio angular.
+
+Adicionalmente, se evalúa la proximidad energética respecto a la partícula síncrona mediante
+
+\begin{equation}
+    |\Delta T_{i,N_c}|<1\,\mathrm{MeV}.
+\end{equation}
+
+Este segundo criterio permite determinar la fracción de partículas cuya energía final se encuentra dentro de la tolerancia establecida.
+
+Ambos indicadores se analizan por separado, puesto que describen propiedades diferentes de la distribución longitudinal del paquete.
+
+\subsection{Simulación de las oscilaciones de sincrotrón}
+
+Las oscilaciones de sincrotrón describen el movimiento longitudinal de una partícula alrededor de la trayectoria de referencia. Para estudiar este comportamiento se introduce una pequeña perturbación inicial de fase respecto a la partícula síncrona.
+
+Se considera una partícula cuya fase inicial está dada por
+
+\begin{equation}
+    \phi_0=\phi_s+3^\circ.
+\end{equation}
+
+La ganancia energética de esta partícula está determinada por
+
+\begin{equation}
+    T_{n+1}
+    =
+    T_n+
+    qV_{\mathrm{gap}}
+    \cos(\phi_s+\Delta\phi_n),
+\end{equation}
+
+donde $\Delta\phi_n=\phi_n-\phi_s$ representa la desviación de fase.
+
+Para pequeñas desviaciones, $|\Delta\phi_n|\ll1$, se utiliza la aproximación de Taylor:
+
+\begin{equation}
+    \cos(\phi_s+\Delta\phi_n)
+    \approx
+    \cos\phi_s-\sin\phi_s\Delta\phi_n.
+\end{equation}
+
+Esta expresión muestra que la diferencia de ganancia energética entre la partícula perturbada y la síncrona depende, en primer orden, de su desviación de fase.
+
+La diferencia energética modifica la velocidad de la partícula y, por tanto, su tiempo de tránsito entre brechas. Como consecuencia, se producen nuevas desviaciones de fase que, bajo condiciones de estabilidad longitudinal, generan oscilaciones alrededor de la trayectoria de referencia.
+
+En la aproximación lineal, el avance de fase de sincrotrón por celda se estima mediante
+
+\begin{equation}
+    \boxed{
+    \mu=
+    \sqrt{
+    \frac{2\pi qV_{\mathrm{gap}}(-\sin\phi_s)}
+    {mc^2\beta_s^2\gamma_s^3}
+    }
+    }.
+    \label{eq:mu}
+\end{equation}
+
+Los parámetros relativistas corresponden a la partícula síncrona y se evalúan en la etapa de aceleración considerada.
+
+Para obtener una estimación numérica del avance de fase, se identifica la posición de cruces por cero consecutivos y alternados de $\Delta\phi_n$. Si $a$ y $b$ representan las posiciones de dos cruces consecutivos, medidas en número de celdas, el avance de fase simulado se estima mediante
+
+\begin{equation}
+    \mu_{\mathrm{sim}}=\frac{\pi}{b-a}.
+\end{equation}
+
+Finalmente, se comparan los valores obtenidos mediante el seguimiento numérico con la predicción de la teoría lineal. Esta comparación permite evaluar la concordancia del modelo discreto con el comportamiento esperado para pequeñas oscilaciones.
+
+\subsection{Sensibilidad a errores en la frecuencia de radiofrecuencia}
+
+Para estudiar la sensibilidad del acelerador frente a variaciones de la frecuencia de operación, se introduce un error relativo respecto a la frecuencia nominal:
+
+\begin{equation}
+    \epsilon_f=
+    \frac{f_{\mathrm{real}}-f_{\mathrm{RF}}}
+    {f_{\mathrm{RF}}}.
+\end{equation}
+
+Despejando la frecuencia real se obtiene
+
+\begin{equation}
+    f_{\mathrm{real}}
+    =
+    f_{\mathrm{RF}}(1+\epsilon_f).
+\end{equation}
+
+En consecuencia, la frecuencia angular utilizada durante el seguimiento se modifica de acuerdo con
+
+\begin{equation}
+    \omega_{\mathrm{real}}
+    =
+    2\pi f_{\mathrm{RF}}(1+\epsilon_f).
+\end{equation}
+
+La ecuación de actualización de fase queda entonces expresada como
+
+\begin{equation}
+    \phi_{i,n+1}
+    =
+    \phi_{i,n}
+    +
+    \omega_{\mathrm{real}}\Delta t_{i,n}
+    -
+    2\pi.
+\end{equation}
+
+Para cada valor de $\epsilon_f$ se realiza el seguimiento de las partículas utilizando las longitudes de celda determinadas con la frecuencia nominal de diseño.
+
+Se registra la evolución de las fases y energías para evaluar la acumulación de desviaciones respecto a la condición de sincronismo original. Finalmente, se comparan las fracciones de partículas agrupadas y sus energías finales para analizar la sensibilidad del acelerador frente a errores de frecuencia.
+
+\subsection{Simulación del comportamiento longitudinal de electrones}
+
+Como caso adicional, se estudia el comportamiento longitudinal de electrones altamente relativistas. Debido a su menor masa en reposo, estas partículas alcanzan velocidades próximas a la velocidad de la luz con energías cinéticas considerablemente menores que las requeridas por los protones.
+
+Para los electrones se considera una energía cinética inicial de
+$T_0=10\,\mathrm{MeV}$. Su energía en reposo es
+
+\begin{equation}
+    m_ec^2\approx0.511\,\mathrm{MeV}.
+\end{equation}
+
+Por tanto, el factor de Lorentz inicial es
+
+\begin{equation}
+    \gamma_0
+    =
+    1+\frac{10}{0.511}
+    \approx20.57.
+\end{equation}
+
+El correspondiente parámetro de velocidad resulta
+
+\begin{equation}
+    \beta_0
+    =
+    \sqrt{1-\frac{1}{\gamma_0^2}}
+    \approx0.9988.
+\end{equation}
+
+Este resultado indica que los electrones se encuentran desde su inyección en un régimen altamente relativista.
+
+Para este caso se considera una estructura de 60 celdas de longitud constante, aproximada por la longitud de onda de radiofrecuencia:
+
+\begin{equation}
+    L=\lambda=\frac{c}{f_{\mathrm{RF}}}.
+\end{equation}
+
+La actualización de fase se determina mediante
+
+\begin{equation}
+    \phi_{i,n+1}
+    =
+    \phi_{i,n}
+    +
+    \omega\frac{L}{\beta_{i,n+1}c}
+    -
+    2\pi.
+\end{equation}
+
+Considerando la frecuencia nominal y la longitud constante $L=\lambda$, se obtiene
+
+\begin{equation}
+    \boxed{
+    \phi_{i,n+1}
+    =
+    \phi_{i,n}
+    +
+    2\pi
+    \left(
+    \frac{1}{\beta_{i,n+1}}-1
+    \right)
+    }.
+\end{equation}
+
+Esta expresión permite analizar la deriva de fase asociada a la diferencia entre la velocidad de los electrones y la velocidad de la luz.
+
+Para estudiar la influencia de la fase inicial se consideran cinco condiciones de inyección:
+
+\begin{equation}
+    \phi_0\in
+    \{-40^\circ,-20^\circ,0^\circ,20^\circ,40^\circ\}.
+\end{equation}
+
+Para cada condición se realiza el seguimiento de la energía y la fase a través de las 60 celdas. Los resultados permiten estudiar la evolución longitudinal de partículas altamente relativistas y establecer una comparación con el comportamiento observado para los protones.
