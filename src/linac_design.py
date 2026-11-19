@@ -1,5 +1,7 @@
 import numpy as np
-from physics import C_LIGHT, M_PROTON_MEV, get_beta
+from physics import C_LIGHT, M_PROTON_MEV, get_beta, get_gamma
+import csv
+import os
 
 
 def design_linac(
@@ -90,3 +92,38 @@ if __name__ == "__main__":
         f"Gradiente medio de aceleración: {T_sync[-1] / total_length:.2f} MeV/m"
     )
     print("=========================================")
+
+def export_design_to_csv(
+    cell_lengths: np.ndarray,
+    T_sync: np.ndarray,
+    z_positions: np.ndarray,
+    filename: str = "resultados/diseno_celdas.csv",
+):
+  """Exporta la geometría de celdas y la energía del protón síncrono a un archivo CSV."""
+  os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+  gamma_vals = get_gamma(T_sync[1:], M_PROTON_MEV)
+  beta_vals = get_beta(T_sync[1:], M_PROTON_MEV)
+
+  with open(filename, mode="w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow([
+        "Numero_Celda",
+        "Longitud_Ln_m",
+        "Posicion_Z_m",
+        "Energia_Sync_MeV",
+        "Beta",
+        "Gamma",
+    ])
+
+    for n in range(len(cell_lengths)):
+      writer.writerow([
+          n + 1,
+          f"{cell_lengths[n]:.6f}",
+          f"{z_positions[n + 1]:.6f}",
+          f"{T_sync[n + 1]:.6f}",
+          f"{beta_vals[n]:.6f}",
+          f"{gamma_vals[n]:.6f}",
+      ])
+
+  print(f" Datos de diseño exportados a '{filename}'")

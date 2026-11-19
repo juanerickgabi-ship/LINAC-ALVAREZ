@@ -1,4 +1,5 @@
 import os
+import csv
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -147,8 +148,8 @@ def plot_synchrotron_results(
     plt.tight_layout()
 
     # Guardar la imagen mejorada en la carpeta figuras
-    os.makedirs("../LINAC ALVAREZ/figuras", exist_ok=True)
-    filepath = "../LINAC ALVAREZ/figuras/fig03_sincrotron.png"
+    os.makedirs("figuras", exist_ok=True)
+    filepath = "figuras/fig03_sincrotron.png"
     plt.savefig(filepath, dpi=300)
     print(f"Gráfica actualizada y guardada correctamente en '{filepath}'")
     plt.show()
@@ -173,3 +174,47 @@ if __name__ == "__main__":
     plot_synchrotron_results(
         delta_phi, mu_theory, sim_cells_mid, sim_mu_points
     )
+
+
+def export_synchrotron_to_csv(
+    delta_phi_deg: np.ndarray,
+    mu_theory_deg: np.ndarray,
+    sim_cells_mid: np.ndarray,
+    sim_mu_points: np.ndarray,
+    filename_traj: str = "resultados/sincrotron_trayectoria.csv",
+    filename_mu: str = "resultados/sincrotron_avance_fase.csv",
+):
+  """Exporta la evolución de la perturbación de fase y las mediciones de avance de fase mu."""
+  os.makedirs(os.path.dirname(filename_traj), exist_ok=True)
+
+  # 1. Exportar evolución celda a celda
+  with open(filename_traj, mode="w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(
+        ["Numero_Celda", "Desviacion_Fase_deg", "Mu_Teorico_deg_celda"]
+    )
+
+    writer.writerow([0, f"{delta_phi_deg[0]:.4f}", "N/A"])
+    for n in range(1, len(delta_phi_deg)):
+      writer.writerow([
+          n,
+          f"{delta_phi_deg[n]:.4f}",
+          f"{mu_theory_deg[n - 1]:.4f}",
+      ])
+
+  # 2. Exportar mediciones por semioscilación
+  with open(filename_mu, mode="w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(
+        ["Semioscilacion", "Celda_Centro_Aprox", "Mu_Simulado_deg_celda"]
+    )
+
+    for idx, (c_mid, mu_sim) in enumerate(
+        zip(sim_cells_mid, sim_mu_points), start=1
+    ):
+      writer.writerow([idx, f"{c_mid:.2f}", f"{mu_sim:.4f}"])
+
+  print(
+      f" Datos de sincrotrón exportados a '{filename_traj}' y"
+      f" '{filename_mu}'"
+  )
