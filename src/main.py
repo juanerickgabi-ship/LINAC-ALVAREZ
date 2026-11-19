@@ -67,20 +67,16 @@ def run_full_simulation():
     # -------------------------------------------------------------------------
     # ETAPA 3: OSCILACIONES DE SINCROTRÓN Y AMORTIGUAMIENTO ADIABÁTICO
     # -------------------------------------------------------------------------
-    print(
-        "\n[3/5] Analizando oscilaciones de sincrotrón para perturbación de"
-        " +3°..."
-    )
-    delta_phi, mu_theory, mu_sim = simulate_synchrotron_oscillation(
+  # -------------------------------------------------------------------------
+    # ETAPA 3: OSCILACIONES DE SINCROTRÓN Y AMORTIGUAMIENTO ADIABÁTICO
+    # -------------------------------------------------------------------------
+    print("\n[3/5] Analizando oscilaciones de sincrotrón para perturbación de +3°...")
+    delta_phi, mu_theory, sim_cells_mid, sim_mu_points = simulate_synchrotron_oscillation(
         perturbation_deg=3.0, phi_s_deg=-30.0
-    )  #[cite: 16]
+    )
     print(f"    -> Avance de fase teórico inicial: {mu_theory[0]:.2f}°/celda")
-    print(f"    -> Avance de fase medido (1ª semioscilación): {mu_sim:.2f}°/celda")
-    print(
-        f"    -> Amplitud de oscilación: {delta_phi[0]:.2f}° (Entrada) ->"
-        f" {abs(delta_phi[-1]):.2f}° (Salida)"
-    )  #[cite: 19]
-    plot_synchrotron_results(delta_phi, mu_theory, mu_sim)
+    print(f"    -> Amplitud de oscilación: {delta_phi[0]:.2f}° (Entrada) -> {abs(delta_phi[-1]):.2f}° (Salida)")
+    plot_synchrotron_results(delta_phi, mu_theory, sim_cells_mid, sim_mu_points)
 
     # -------------------------------------------------------------------------
     # ETAPA 4: ANÁLISIS DE SENSIBILIDAD A ERRORES EN LA FRECUENCIA RF
