@@ -16,7 +16,7 @@ Este repositorio contiene la simulación desde cero de la dinámica longitudinal
 
 1. Clonar el repositorio:
    ```bash
-   git clone [https://github.com/TU_USUARIO/LINAC-ALVAREZ.git](https://github.com/TU_USUARIO/LINAC-ALVAREZ.git)
+   git clone [https://github.com/juanerickgabi-ship/LINAC-ALVAREZ.git](https://github.com/juanerickgabi-ship/LINAC-ALVAREZ.git)
    cd LINAC-ALVAREZ
    ```
 
@@ -25,15 +25,24 @@ Este repositorio contiene la simulación desde cero de la dinámica longitudinal
    pip install -r requirements.txt
    ```
 
+3. Instalar extensiones en VSCode (solo si se trabaja en este)
+
+
 ---
 
 ## 🚀 Ejecución del Proyecto
 
-Para ejecutar la simulación completa y generar todas las gráficas en la carpeta `figuras/`:
+Para ejecutar la simulación completa, generar todas las gráficas en la carpeta `figuras/` y generar los archivos numericos en formato `.csv` en la carpeta `resultados` :
 
 ```bash
 python src/main.py
 ```
+o tambien 
+
+```bash
+python P19-Acelerador-lineal.ipnyb
+```
+
 
 ---
 
@@ -42,4 +51,6 @@ python src/main.py
 - `src/`: Código fuente modular en Python.
 - `figuras/`: Gráficos en alta resolución del espacio de fases, celdas y errores.
 - `resultados/`: Datos exportados de las simulaciones.
-- `informe/`: Documentación y reporte del proyecto.
+- `informe_acelerador_lineal/`: Documentación y reporte del proyecto.
+- `P19-Acelerador-lineal.ipynb` : Notebook con el codigo fuente explicando cada parte del mismo.
+- `Avances/` : Documentación de avances hechos durante el proyecto.
