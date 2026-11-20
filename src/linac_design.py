@@ -93,17 +93,28 @@ if __name__ == "__main__":
     )
     print("=========================================")
 
+import csv
+import os
+import numpy as np
+from physics import M_PROTON_MEV, get_beta, get_gamma
+
+
 def export_design_to_csv(
     cell_lengths: np.ndarray,
     T_sync: np.ndarray,
     z_positions: np.ndarray,
+    phi_s_deg: float = -30.0,
+    qV_gap: float = 1.0,
     filename: str = "resultados/diseno_celdas.csv",
 ):
-  """Exporta la geometría de celdas y la energía del protón síncrono a un archivo CSV."""
+  """Exporta geometría de celdas, ganancia de energía y campos eléctricos (MV/m) a CSV."""
   os.makedirs(os.path.dirname(filename), exist_ok=True)
 
   gamma_vals = get_gamma(T_sync[1:], M_PROTON_MEV)
   beta_vals = get_beta(T_sync[1:], M_PROTON_MEV)
+
+  cos_phi_s = np.cos(np.radians(phi_s_deg))
+  delta_T_cell = qV_gap * cos_phi_s
 
   with open(filename, mode="w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
@@ -111,19 +122,33 @@ def export_design_to_csv(
         "Numero_Celda",
         "Longitud_Ln_m",
         "Posicion_Z_m",
+        "Cos_Phi_Sync",
+        "Delta_T_MeV",
         "Energia_Sync_MeV",
         "Beta",
         "Gamma",
+        "E_acc_MV_m",
+        "E0_MV_m",
     ])
 
     for n in range(len(cell_lengths)):
+      # Calcula el campo eléctrico promedio  que la partícula síncrona aprovecha eficazmente para ganar energía a lo largo de la celda de longitud $L_n$
+      e_acc = delta_T_cell / cell_lengths[n] #Gradiente medio de aceleración en MV/m
+      
+      # Calcula el campo eléctrico máximo en el hueco de la celda, que es la relación entre la ganancia de energía máxima y la longitud de la celda
+      e0 = qV_gap / cell_lengths[n] #Gradiente máximo de aceleración en MV/m
+
       writer.writerow([
           n + 1,
           f"{cell_lengths[n]:.6f}",
           f"{z_positions[n + 1]:.6f}",
+          f"{cos_phi_s:.6f}",
+          f"{delta_T_cell:.6f}",
           f"{T_sync[n + 1]:.6f}",
           f"{beta_vals[n]:.6f}",
           f"{gamma_vals[n]:.6f}",
+          f"{e_acc:.6f}",
+          f"{e0:.6f}",
       ])
 
-  print(f" Datos de diseño exportados a '{filename}'")
+  print(f"Datos de diseño y campos eléctricos exportados a '{filename}'")

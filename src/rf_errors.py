@@ -128,7 +128,7 @@ def plot_rf_error_results(results):
         color="#1f77b4",
         linewidth=2,
         markersize=6,
-        label=r"Desplazamiento $\langle\Delta\phi\rangle$",
+        label=r"Desplazamiento $\langle\Delta\phi_{eq}\rangle$",
     )
 
     # Anotar desfases exactos en grados sobre cada punto
@@ -151,7 +151,7 @@ def plot_rf_error_results(results):
     )
     ax2.set_xlabel(r"Error relativo de frecuencia $\epsilon_f$ (%)", fontsize=10.5)
     ax2.set_ylabel(
-        r"Desviación de fase media $\langle\Delta\phi\rangle$ (grados)",
+        r"Desviación de fase media $\langle\Delta\phi_{eq}\rangle$ (grados)",
         fontsize=10.5,
     )
     ax2.set_ylim(-0.5, 13.0)
