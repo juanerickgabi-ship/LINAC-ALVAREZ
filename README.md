@@ -44,11 +44,11 @@ Este repositorio contiene la simulación dinámica, el diseño geométrico cinem
 |:------:|:-------------------:|:-----------------:|
 |Factor Gamma Relativista|$\gamma_n​=1 + \frac{T_n}{m_0​ c^2}$​​|Relación masa-energía de la partícula|
 |Factor Beta Relativista|$\beta_n​= \sqrt{1−\frac{1}{\gamma_n^2​}​}​$|Velocidad adimensional $\beta =v/c$|
-|Condición de Sincronismo|$Ln​=\beta_n​ \lambda= \frac{​\beta_n​ c}{f_{RF}}$​|Longitud requerida de la celda n|
+|Condición de Sincronismo|$L_n​=\beta_n​ \lambda= \frac{​\beta_n​ c}{f_{RF}}$​|Longitud requerida de la celda n|
 |Ganancia Síncrona por Celda|$\Delta T_n = qV_{gap​} cos(\phi_s​)$|Ganancia de energía síncrona constante|
 |Gradiente Efectivo de Campo|$E_{acc,n}​= \frac{​qV_{gap​}cos(ϕs​)}{L_n}$|Campo eléctrico acelerador por metro (MV/m)|
 |Gradiente Pico Nominal|$E_{0,n}​=\frac{​qV_{gap}}{L_n}$|Gradiente eléctrico máximo en la celda|
-|Avance de Fase por Celda|$\mu_n =$​$ \frac{}{m_0 ​c^2 \beta_n^2​ \gamma_n^3}​$​​|Frecuencia angular de oscilación de sincrotrón|
+|Avance de Fase por Celda|$\mu_n=\frac{2 \pi qV_{gap}​(−sin(\phi_s​))}{m_0 ​c^2 \beta_n^2​ \gamma_n^3}​$​​|Frecuencia angular de oscilación de sincrotrón|
 
 
 ## Archivo de Resultados `resultados/`
@@ -59,6 +59,7 @@ Los datos generados por la simulación se exportan automáticamente a la carpeta
 - `sincrotron_avance_fase.csv`: Avance de fase síncrono teórico $\mu_n$ vs. empírico.
 - `rf_errores_sensibilidad.csv`: Porcentaje de captura, desplazamiento medio de fase de equilibrio $\langle\Delta\phi\rangle$ y energía media transmitida para barridos de error RF ($0\%$ a $4\%$).
 - `electrones_simulacion.csv`: Traza cinemática y de fase de electrones en 60 celdas constantes.
+
 
 ## Requisitos e Instalación
 
@@ -90,7 +91,6 @@ o tambien
 ```bash
 python P19-Acelerador-lineal.ipnyb
 ```
-
 
 ---
 
