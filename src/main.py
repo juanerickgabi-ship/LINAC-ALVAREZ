@@ -1,23 +1,29 @@
 import sys
+import pandas as pd
+
+
 from electrons import (
     export_electrons_to_csv,
     plot_electron_results,
     simulate_electrons,
 )
 from linac_design import design_linac, export_design_to_csv
+
 from rf_errors import (
     export_rf_errors_to_csv,
     plot_rf_error_results,
-    simulate_frequency_errors,
-)
+    simulate_frequency_errors,)
 from synchrotron import (
     export_synchrotron_to_csv,
     plot_synchrotron_results,
-    simulate_synchrotron_oscillation,
-)
+    simulate_synchrotron_oscillation,)
 
 from tracking import generate_particle_bunch, track_bunch
-from visualizer import plot_cell_lengths, plot_phase_space
+
+from visualizer import (
+    plot_cell_lengths, plot_phase_space, 
+    plot_electric_field_profile, plot_adiabatic_damping_evolution,
+    plot_kinematic_profile,)
 
 
 def run_full_simulation():
@@ -47,7 +53,8 @@ def run_full_simulation():
     
     plot_cell_lengths(cell_lengths, filename="fig01_diseno.png")
     export_design_to_csv(cell_lengths, T_sync, z_positions)
-
+    
+    
     # -------------------------------------------------------------------------
     # ETAPA 2: SEGUIMIENTO DEL PAQUETE DE PROTONES (3000 PARTÍCULAS)
     # -------------------------------------------------------------------------
@@ -110,6 +117,32 @@ def run_full_simulation():
     
     plot_electron_results(e_hist_T, e_hist_phi, e_phases)
     export_electrons_to_csv(e_hist_T, e_hist_phi, e_phases)
+    
+    
+    
+    #CAMPO ELECTRICO Y VELOCIDAD RELATIVISTA
+        
+    # Cargar datos del diseño y campos
+    df_diseno = pd.read_csv("resultados/diseno_celdas.csv")
+    
+    # 1. Graficar perfil de campos eléctricos en metros reales
+    plot_electric_field_profile(
+        z_positions=z_positions,
+        E0_vals=df_diseno["E0_MV_m"].values,
+        Eacc_vals=df_diseno["E_acc_MV_m"].values,)
+    
+    # Ejecutar la gráfica cinemática
+    plot_kinematic_profile(
+        z_positions=z_positions,
+        beta_vals=df_diseno["Beta"].values,
+        T_sync=T_sync,
+        save_fig=True,
+        filename="fig08_perfil_cinematico.png",
+)
+    
+    # 2. Graficar la evolución cuantitativa del amortiguamiento adiabático
+    plot_adiabatic_damping_evolution(hist_T, hist_phi, T_sync, phi_s_deg=-30.0)
+    
     
 
     print("\n=================================================================")
