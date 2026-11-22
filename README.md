@@ -20,37 +20,35 @@ Este repositorio contiene la simulación dinámica, el diseño geométrico cinem
 
 ## Estructura del Repositorio
 
-LINAC ALVAREZ/
-
-├── P19-Acelerador-lineal.ipynb   # Notebook principal interactivo (Informe ejecutable)
-
-├── README.md                     # Documentación completa del repositorio
-
-├── requirements.txt              # Dependencias de Python (numpy, matplotlib, pandas)
-├── .gitignore                    # Archivos excluidos del control de versiones
-├── src/                          # Módulos Python del simulador
-│   ├── physics.py                # Constantes físicas y conversión relativista
-│   ├── linac_design.py           # Diseño geométrico síncrono y exportación CSV
-│   ├── tracking.py               # Generación y seguimiento discreto del haz
-│   ├── synchrotron.py            # Oscilaciones de sincrotrón no lineales
-│   ├── rf_errors.py              # Análisis de errores de frecuencia RF
-│   ├── electrons.py              # Simulación de electrones ultrarelativistas
-│   ├── visualizer.py             # Generación de la suite de 11 figuras analíticas
-│   └── main.py                   # Script unificador principal de ejecución
-├── figuras/                      # Suite de 11 gráficas exportadas en alta resolución (300 DPI)
-└── resultados/                   # Datos numéricos tabulados en formato CSV
+- LINAC ALVAREZ/
+   * ├── P19-Acelerador-lineal.ipynb   # Notebook principal interactivo (Informe ejecutable)
+   * ├── README.md                     # Documentación completa del repositorio
+   * ├── requirements.txt              # Dependencias de Python (numpy, matplotlib, pandas)
+   * ├── .gitignore                    # Archivos excluidos del control de versiones
+   * ├── src/                          # Módulos Python del simulador
+   + │   ├── physics.py                # Constantes físicas y conversión relativista
+   + │   ├── linac_design.py           # Diseño geométrico síncrono y exportación CSV
+   + │   ├── tracking.py               # Generación y seguimiento discreto del haz
+   + │   ├── synchrotron.py            # Oscilaciones de sincrotrón no lineales
+   + │   ├── rf_errors.py              # Análisis de errores de frecuencia RF
+   + │   ├── electrons.py              # Simulación de electrones ultrarelativistas
+   + │   ├── visualizer.py             # Generación de la suite de 11 figuras analíticas
+   + │   └── main.py                   # Script unificador principal de ejecución
+   * ├── figuras/                      # Suite de 11 gráficas exportadas en alta resolución (300 DPI)
+   * └── resultados/                   # Datos numéricos tabulados en formato CSV
 ---
 
 ## Parametros Físicos
 
-Magnitud, Ecuación / Expresión, Descripción Física
-Factor Gamma Relativista,γn​=1+m0​c2Tn​​,Relación masa-energía de la partícula
-Factor Beta Relativista,βn​=1−γn2​1​​,Velocidad adimensional β=v/c
-Condición de Sincronismo,Ln​=βn​λ=fRF​βn​c​,Longitud requerida de la celda n
-Ganancia Síncrona por Celda,ΔTn​=qVgap​cos(ϕs​),Ganancia de energía síncrona constante
-Gradiente Efectivo de Campo,"Eacc,n​=Ln​qVgap​cos(ϕs​)​",Campo eléctrico acelerador por metro (MV/m)
-Gradiente Pico Nominal,"E0,n​=Ln​qVgap​​",Gradiente eléctrico máximo en la celda
-Avance de Fase por Celda,μn​=m0​c2βn2​γn3​2πqVgap​(−sinϕs​)​​,Frecuencia angular de oscilación de sincrotrón
+|Magnitud| Ecuación / Expresión| Descripción Física|
+|:------:|:-------------------:|:-----------------:|
+|Factor Gamma Relativista|γn​=1+m0​c2Tn​​|Relación masa-energía de la partícula|
+|Factor Beta Relativista|βn​=1−γn2​1​​ |Velocidad adimensional β=v/c|
+|Condición de Sincronismo|Ln​=βn​λ=fRF​βn​c​|Longitud requerida de la celda n|
+|Ganancia Síncrona por Celda|ΔTn​=qVgap​cos(ϕs​)|Ganancia de energía síncrona constante|
+|Gradiente Efectivo de Campo|"Eacc,n​=Ln​qVgap​cos(ϕs​)​"|Campo eléctrico acelerador por metro (MV/m)|
+|Gradiente Pico Nominal|"E0,n​=Ln​qVgap​​"|Gradiente eléctrico máximo en la celda|
+|Avance de Fase por Celda|μn​=m0​c2βn2​γn3​2πqVgap​(−sinϕs​)​​|Frecuencia angular de oscilación de sincrotrón|
 
 ## Requisitos e Instalación
 
