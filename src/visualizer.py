@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import pandas as pd
 
 
 from linac_design import design_linac
@@ -83,7 +84,7 @@ def plot_phase_space(
     ax2.legend(loc="upper right")
 
     plt.suptitle(
-        f"Espacio de Fases Longitudinal (LINAC Álvarez, $\phi_s ="
+        rf"Espacio de Fases Longitudinal (LINAC Álvarez, $\phi_s = {phi_s_deg}^\circ$)"
         f" {phi_s_deg}^\circ$)",
         fontsize=13,
         fontweight="bold",
@@ -332,7 +333,203 @@ def plot_adiabatic_damping_evolution(
     plt.show()
     
 
+def plot_energy_gain_rate(
+    z_positions: np.ndarray,
+    Eacc_vals: np.ndarray,
+    f_rf: float = 352.2e6,
+    save_fig: bool = True,
+    filename: str = "fig09_tasa_ganancia_energia.png",
+):
+    """Compara la ganancia de energía por metro (dT/dz = MeV/m) entre protones y electrones relativistas."""
+    fig, ax = plt.subplots(figsize=(8.5, 4.5))
 
+    # Posiciones en metros para los protones (omitimos z=0 para alinear con las 55 celdas)
+    z_m = z_positions[1:]
+
+    # 1. Tasa de ganancia de los protones en la cavidad Álvarez (MV/m = MeV/m)
+    ax.plot(
+        z_m,
+        Eacc_vals,
+        "b-",
+        linewidth=2.2,
+        label=r"Protones (Álvarez, $L_n = \beta_n \lambda$)",
+    )
+
+    # 2. Tasa de ganancia ideal para electrones (L = lambda = 0.851 m constante, phi_0 = 0°)
+    wavelength = 299792458.0 / f_rf
+    dT_dz_elec = 1.0 / wavelength  # ~1.174 MeV/m
+
+    ax.axhline(
+        dT_dz_elec,
+        color="purple",
+        linestyle="--",
+        linewidth=2.0,
+        label=r"Electrones (Celdas constantes $L = \lambda$, $\phi_0 = 0^\circ$)",
+    )
+
+    ax.set_xlabel("Posición longitudinal $z$ (m)", fontsize=11)
+    ax.set_ylabel(
+        r"Tasa de Ganancia de Energía $dT/dz$ (MeV/m)", fontsize=11
+    )
+    ax.set_title(
+        "Eficiencia de Aceleración Longitudinal por Metro ($dT/dz$)",
+        fontsize=12,
+        fontweight="bold",
+    )
+    ax.grid(True, linestyle=":", alpha=0.6)
+    ax.legend(loc="upper right", fontsize=9.5)
+
+    plt.tight_layout()
+
+    if save_fig:
+        os.makedirs("figuras", exist_ok=True)
+        filepath = os.path.join("figuras", filename)
+        plt.savefig(filepath, dpi=300)
+        print(f"Gráfica guardada en '{filepath}'")
+
+    plt.show()
+
+
+def plot_phase_space_density(
+    hist_T: np.ndarray,
+    hist_phi: np.ndarray,
+    T_sync: np.ndarray,
+    phi_s_deg: float = -30.0,
+    save_fig: bool = True,
+    filename: str = "fig10_densidad_emiteza_salida.png",):
+    
+    """Genera un mapa de densidad de corriente 2D (histograma bivariado) del haz a la salida (Celda 55)."""
+    
+    phi_s_rad = np.radians(phi_s_deg)
+
+    # Desviación respecto a la partícula síncrona en la última celda (Celda 55)
+    delta_phi_final_deg = np.degrees(hist_phi[-1] - phi_s_rad)
+    delta_T_final_keV = (hist_T[-1] - T_sync[-1]) * 1000.0
+
+    # Filtrar partículas capturadas dentro del pozo síncrono
+    captured = np.abs(delta_phi_final_deg) < 60.0
+
+    fig, ax = plt.subplots(figsize=(8.5, 5))
+
+    # Histograma 2D en espacio de fases
+    counts, xedges, yedges, im = ax.hist2d(
+        delta_phi_final_deg[captured],
+        delta_T_final_keV[captured],
+        bins=45,
+        cmap="inferno",
+        cmin=1,
+    )
+
+    cbar = fig.colorbar(im, ax=ax)
+    cbar.set_label("Número de partículas por celda bin", fontsize=10.5)
+
+    ax.set_xlabel(
+        r"Desviación de fase $\Delta\phi = \phi - \phi_s$ (grados)", fontsize=11
+    )
+    ax.set_ylabel(
+        r"Desviación de energía $\Delta T = T - T_{\mathrm{sync}}$ (keV)",
+        fontsize=11,
+    )
+    ax.set_title(
+        "Distribución de Densidad de Corriente del Haz a la Salida (50 MeV)",
+        fontsize=12,
+        fontweight="bold",
+    )
+    ax.grid(True, linestyle=":", alpha=0.4)
+
+    plt.tight_layout()
+
+    if save_fig:
+        os.makedirs("figuras", exist_ok=True)
+        filepath = os.path.join("figuras", filename)
+        plt.savefig(filepath, dpi=300)
+        print(f"Gráfica guardada en '{filepath}'")
+
+    plt.show()
+
+
+def plot_rf_operational_window(
+    df_rf_errors: pd.DataFrame,
+    save_fig: bool = True,
+    filename: str = "fig11_ventana_operativa_rf.png",
+):
+    """Grafica la ventana de tolerancia operativa del LINAC relacionando la captura (%) y la energía media final (MeV)."""
+    fig, ax1 = plt.subplots(figsize=(8.5, 4.5))
+
+    errors_pct = df_rf_errors["Error_RF_Pct"].values
+    capture_pcts = df_rf_errors["Captura_Pct"].values
+    t_final_vals = df_rf_errors["Energia_Media_Final_MeV"].values
+
+    # Eje Y Izquierdo: Porcentaje de Captura Longitudinal (%)
+    color_cap = "#d62728"
+    ax1.plot(
+        errors_pct,
+        capture_pcts,
+        "o-",
+        color=color_cap,
+        linewidth=2.0,
+        label="Partículas capturadas (%)",
+    )
+    ax1.axhline(
+        90,
+        color="gray",
+        linestyle="--",
+        linewidth=1.0,
+        label="Criterio Mínimo de Aceptación (90%)",
+    )
+    ax1.set_xlabel(
+        r"Error relativo de frecuencia $\epsilon_f$ (%)", fontsize=11
+    )
+    ax1.set_ylabel("Captura Longitudinal (%)", color=color_cap, fontsize=11)
+    ax1.tick_params(axis="y", labelcolor=color_cap)
+    ax1.set_ylim(45, 105)
+    ax1.grid(True, linestyle=":", alpha=0.6)
+
+    # Sombrear la ventana de tolerancia operativa segura (\epsilon_f <= 1.0%)
+    ax1.axvspan(
+        0.0,
+        1.0,
+        color="green",
+        alpha=0.12,
+        label=r"Ventana de Tolerancia Operativa ($\epsilon_f \leq 1.0\%$)",
+    )
+
+    # Eje Y Derecho: Energía Media Final alcanzada por el haz (MeV)
+    ax2 = ax1.twinx()
+    color_t = "#1f77b4"
+    ax2.plot(
+        errors_pct,
+        t_final_vals,
+        "s--",
+        color=color_t,
+        linewidth=1.8,
+        label=r"Energía Media Final $\langle T\rangle$ (MeV)",
+    )
+    ax2.set_ylabel(
+        r"Energía Media de Salida $\langle T\rangle$ (MeV)",
+        color=color_t,
+        fontsize=11,
+    )
+    ax2.tick_params(axis="y", labelcolor=color_t)
+    ax2.set_ylim(0, 55)
+
+    plt.title(
+        "Ventana de Tolerancia Operativa del LINAC ante Errores de Frecuencia"
+        " RF",
+        fontsize=12,
+        fontweight="bold",
+    )
+    ax1.legend(loc="lower left", fontsize=9)
+
+    plt.tight_layout()
+
+    if save_fig:
+        os.makedirs("figuras", exist_ok=True)
+        filepath = os.path.join("figuras", filename)
+        plt.savefig(filepath, dpi=300)
+        print(f"Gráfica guardada en '{filepath}'")
+
+    plt.show()  
   
   
 if __name__ == "__main__":

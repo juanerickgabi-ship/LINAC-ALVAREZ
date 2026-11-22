@@ -23,7 +23,8 @@ from tracking import generate_particle_bunch, track_bunch
 from visualizer import (
     plot_cell_lengths, plot_phase_space, 
     plot_electric_field_profile, plot_adiabatic_damping_evolution,
-    plot_kinematic_profile,)
+    plot_kinematic_profile, plot_energy_gain_rate,
+    plot_phase_space_density, plot_rf_operational_window,)
 
 
 def run_full_simulation():
@@ -75,13 +76,21 @@ def run_full_simulation():
         f"    -> Captura longitudinal (|Δϕ| < 60°):"
         f" {(sum(captured) / 3000) * 100:.1f}%"
     )  #[cite: 15, 18]
+    
     plot_phase_space(
         hist_T,
         hist_phi,
         T_sync,
         phi_s_deg=-30.0,
-        filename="fig02_espacio_fases.png",
-    )  #[cite: 19]
+        filename="fig02_espacio_fases.png",)
+    
+    # Mapa de densidad 2D de emiteza en la salida
+    plot_phase_space_density(
+        hist_T,
+        hist_phi,
+        T_sync,
+        phi_s_deg=-30.0,
+        filename="fig10_densidad_emiteza_salida.png",)
 
   # -------------------------------------------------------------------------
     # ETAPA 3: OSCILACIONES DE SINCROTRÓN Y AMORTIGUAMIENTO ADIABÁTICO
@@ -118,14 +127,26 @@ def run_full_simulation():
     plot_electron_results(e_hist_T, e_hist_phi, e_phases)
     export_electrons_to_csv(e_hist_T, e_hist_phi, e_phases)
     
+    # Ventana de tolerancia operativa
+    df_rf_errors = pd.read_csv("resultados/rf_errores_sensibilidad.csv")
+    plot_rf_operational_window(
+        df_rf_errors, filename="fig11_ventana_operativa_rf.png"
+    )
+    
+    #GRADFICAS EXTRAS DE RESULTADOS DE DISEÑO Y SIMULACIÓN
+    
+    # Gráfica comparativa de ganancia de energía por metro (dT/dz)
+    
+    # Cargar datos del diseño
+    df_diseno = pd.read_csv("resultados/diseno_celdas.csv")
+    
+    plot_energy_gain_rate(
+        z_positions, df_diseno["E_acc_MV_m"].values, f_rf=352.2e6)
     
     
     #CAMPO ELECTRICO Y VELOCIDAD RELATIVISTA
         
-    # Cargar datos del diseño y campos
-    df_diseno = pd.read_csv("resultados/diseno_celdas.csv")
-    
-    # 1. Graficar perfil de campos eléctricos en metros reales
+    #Graficar perfil de campos eléctricos en metros reales
     plot_electric_field_profile(
         z_positions=z_positions,
         E0_vals=df_diseno["E0_MV_m"].values,
@@ -140,7 +161,7 @@ def run_full_simulation():
         filename="fig08_perfil_cinematico.png",
 )
     
-    # 2. Graficar la evolución cuantitativa del amortiguamiento adiabático
+    #Graficar la evolución cuantitativa del amortiguamiento adiabático
     plot_adiabatic_damping_evolution(hist_T, hist_phi, T_sync, phi_s_deg=-30.0)
     
     
