@@ -21,8 +21,11 @@ Este repositorio contiene la simulación dinámica, el diseño geométrico cinem
 ## Estructura del Repositorio
 
 LINAC ALVAREZ/
+
 ├── P19-Acelerador-lineal.ipynb   # Notebook principal interactivo (Informe ejecutable)
+
 ├── README.md                     # Documentación completa del repositorio
+
 ├── requirements.txt              # Dependencias de Python (numpy, matplotlib, pandas)
 ├── .gitignore                    # Archivos excluidos del control de versiones
 ├── src/                          # Módulos Python del simulador
