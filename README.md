@@ -48,7 +48,7 @@ Este repositorio contiene la simulación dinámica, el diseño geométrico cinem
 |Ganancia Síncrona por Celda|$\Delta T_n = qV_{gap​} cos(\phi_s​)$|Ganancia de energía síncrona constante|
 |Gradiente Efectivo de Campo|$E_{acc,n}​= \frac{​qV_{gap​}cos(ϕs​)}{L_n}$|Campo eléctrico acelerador por metro (MV/m)|
 |Gradiente Pico Nominal|$E_{0,n}​=\frac{​qV_{gap}}{L_n}$|Gradiente eléctrico máximo en la celda|
-|Avance de Fase por Celda|$\mu_n $​=$ \frac{2 \pi qV_{gap}​(−sin(\phi_s​))}{m_0 ​c^2 \beta_n^2​ \gamma_n^3}​$​​|Frecuencia angular de oscilación de sincrotrón|
+|Avance de Fase por Celda|$\mu_n =$​$ \frac{2 \pi qV_{gap}}{m_0 ​c^2 \beta_n^2​ \gamma_n^3}​$​​|Frecuencia angular de oscilación de sincrotrón|
 
 
 ## Archivo de Resultados `resultados/`
