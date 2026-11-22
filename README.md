@@ -42,13 +42,13 @@ Este repositorio contiene la simulación dinámica, el diseño geométrico cinem
 
 |Magnitud| Ecuación / Expresión| Descripción Física|
 |:------:|:-------------------:|:-----------------:|
-|Factor Gamma Relativista|$\gamma_n​=1 + \frac{T_n}{m_0​c^2}$​​|Relación masa-energía de la partícula|
+|Factor Gamma Relativista|$\gamma_n​=1 + \frac{T_n}{m_0​ c^2}$​​|Relación masa-energía de la partícula|
 |Factor Beta Relativista|$\beta_n​= \sqrt{1−\frac{1}{γ_n^2​}​}​$|Velocidad adimensional $\beta =v/c$|
 |Condición de Sincronismo|$Ln​=\beta_n​ \lambda= \frac{​\beta_n​ c}{f_{RF}}$​|Longitud requerida de la celda n|
-|Ganancia Síncrona por Celda|$\Delta T_n = qV_{gap​} cos(phi_s​)$|Ganancia de energía síncrona constante|
+|Ganancia Síncrona por Celda|$\Delta T_n = qV_{gap​} cos(\phi_s​)$|Ganancia de energía síncrona constante|
 |Gradiente Efectivo de Campo|$E_{acc,n}​= \frac{​qV_{gap​}cos(ϕs​)}{L_n}$|Campo eléctrico acelerador por metro (MV/m)|
 |Gradiente Pico Nominal|$E_{0,n}​=\frac{​qV_{gap}}{L_n}$|Gradiente eléctrico máximo en la celda|
-|Avance de Fase por Celda|$\mu_n ​= \frac{2 \pi qV_{gap}​(−sin(\phi_s​))}{m_0 ​c^2 \beta_n^2​ \gamma_n^3​$​​|Frecuencia angular de oscilación de sincrotrón|
+|Avance de Fase por Celda|$\mu_n ​= \frac{2 qV_{gap}​(−sin(\phi_s​))}{m_0 ​c^2 \beta_n^2​ \gamma_n^3}​$​​|Frecuencia angular de oscilación de sincrotrón|
 
 
 ## Archivo de Resultados `resultados/`
