@@ -42,13 +42,23 @@ Este repositorio contiene la simulación dinámica, el diseño geométrico cinem
 
 |Magnitud| Ecuación / Expresión| Descripción Física|
 |:------:|:-------------------:|:-----------------:|
-|Factor Gamma Relativista|γn​=1+m0​c2Tn​​|Relación masa-energía de la partícula|
-|Factor Beta Relativista|βn​=1−γn2​1​​ |Velocidad adimensional β=v/c|
-|Condición de Sincronismo|Ln​=βn​λ=fRF​βn​c​|Longitud requerida de la celda n|
-|Ganancia Síncrona por Celda|ΔTn​=qVgap​cos(ϕs​)|Ganancia de energía síncrona constante|
-|Gradiente Efectivo de Campo|"Eacc,n​=Ln​qVgap​cos(ϕs​)​"|Campo eléctrico acelerador por metro (MV/m)|
-|Gradiente Pico Nominal|"E0,n​=Ln​qVgap​​"|Gradiente eléctrico máximo en la celda|
-|Avance de Fase por Celda|μn​=m0​c2βn2​γn3​2πqVgap​(−sinϕs​)​​|Frecuencia angular de oscilación de sincrotrón|
+|Factor Gamma Relativista|$\gamma_n​=1 + \frac{T_n}{m_0​c^2}$​​|Relación masa-energía de la partícula|
+|Factor Beta Relativista|$\beta_n​= \sqrt{1−\frac{1}{γ_n^2​}​}​ |Velocidad adimensional $\beta =v/c$|
+|Condición de Sincronismo|$Ln​=\beta_n​ \lambda= \frac{​\beta_n​ c}{f_{RF}}$​|Longitud requerida de la celda n|
+|Ganancia Síncrona por Celda|$\Delta T_n = qV_{gap​} cos(ϕs​)|Ganancia de energía síncrona constante|
+|Gradiente Efectivo de Campo|$E_{acc,n}​= \frac{​qV_{gap​}cos(ϕs​)}{L_n}$|Campo eléctrico acelerador por metro (MV/m)|
+|Gradiente Pico Nominal|$E_{0,n}​=\frac{​qV_{gap}}{L_n}$|Gradiente eléctrico máximo en la celda|
+|Avance de Fase por Celda|$\mu_n ​= \frac{2\pi qV_{gap}​(−sinϕs​)}{m_0 ​c^2 \beta_n^2​ \gamma_n^pl3}​$​​|Frecuencia angular de oscilación de sincrotrón|
+
+
+## Archivo de Resultados `resultados/`
+
+Los datos generados por la simulación se exportan automáticamente a la carpeta `resultados/`:
+`diseno_celdas.csv`: Tabla principal de 55 celdas con geometría $L_n$, posición acumulada $z_n$, ganancia $\Delta T_n$, factores $\beta_n$, $\gamma_n$, $\cos(\phi_s)$ y campos $E_0$ y $E_{\text{acc}}$ ($\text{MV/m}$).
+`sincrotron_trayectoria.csv`: Evolución celda a celda de la perturbación de fase $\delta\phi(n)$ ante una desviación inicial.
+`sincrotron_avance_fase.csv`: Avance de fase síncrono teórico $\mu_n$ vs. empírico.
+`rf_errores_sensibilidad.csv`: Porcentaje de captura, desplazamiento medio de fase de equilibrio $\langle\Delta\phi\rangle$ y energía media transmitida para barridos de error RF ($0\%$ a $4\%$).
+`electrones_simulacion.csv`: Traza cinemática y de fase de electrones en 60 celdas constantes.
 
 ## Requisitos e Instalación
 
@@ -70,7 +80,7 @@ Este repositorio contiene la simulación dinámica, el diseño geométrico cinem
 
 ## 🚀 Ejecución del Proyecto
 
-Para ejecutar la simulación completa, generar todas las gráficas en la carpeta `figuras/` y generar los archivos numericos en formato `.csv` en la carpeta `resultados` :
+Para ejecutar la simulación completa, generar todas las gráficas en la carpeta `figuras/` y generar los archivos numericos en formato `.csv` en la carpeta `resultados/` :
 
 ```bash
 python src/main.py
