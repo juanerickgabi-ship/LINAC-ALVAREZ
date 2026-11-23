@@ -1,0 +1,51 @@
+% ==============================================================================
+% CAPÍTULO 2: METODOLOGÍA COMPUTACIONAL Y ARQUITECTURA DEL SIMULADOR
+% ==============================================================================
+\chapter{Metodología Computacional y Arquitectura del Simulador}
+
+\section{Arquitectura del Software y Estructura Modular}
+El simulador dinámico fue desarrollado en Python 3 siguiendo una arquitectura modular orientada a separar la física fundamental, el cálculo geométrico, la integración discreta de trayectorias, el análisis de estabilidad y la visualización analítica. El código fuente reside en el directorio \texttt{src/} y se estructura en los siguientes módulos:
+
+\begin{description}
+    \item[\texttt{physics.py}:] Contiene las constantes físicas fundamentales ($c$, $m_0 c^2_{\text{proton}}$, $m_0 c^2_{\text{electron}}$, $q$) y las funciones de conversión cinemática para calcular el factor de Lorentz $\gamma$ y la velocidad adimensional $\beta$.
+    \item[\texttt{linac\_design.py}:] Implementa el diseño síncrono geométrico celda a celda, resolviendo la longitud $L_n = \beta_n \lambda$, la posición acumulada $z_n$, la ganancia energética $\Delta T_n = q V_{\text{gap}} \cos(\phi_s)$ y los campos eléctricos $E_{0,n}$ y $E_{\text{acc},n}$. Exporta los datos a \texttt{resultados/diseno\_celdas.csv}.
+    \item[\texttt{tracking.py}:] Genera el paquete inicial de $N = 3000$ protones con dispersiones gaussianas y ejecuta el algoritmo de transporte numérico discreto en el plano de fases $(\Delta\phi, \Delta T)$ a través de las 55 celdas.
+    \item[\texttt{synchrotron.py}:] Simula las oscilaciones de sincrotrón no lineales para perturbaciones discretas de fase, comparando el avance de fase numérico frente al valor teórico de oscilación de fase $\mu_n$.
+    \item[\texttt{rf\_errors.py}:] Modula la frecuencia angular de RF ($\omega = \omega_0 (1 + \epsilon_f)$) para evaluar la sensibilidad del haz y el desplazamiento del punto síncrono ante errores del $0\%$ al $4\%$.
+    \item[\texttt{electrons.py}:] Modela el comportamiento de un haz ultrarelativista de electrones ($T_0 = 10.0\text{ MeV}$) en una cavidad de celdas constantes de longitud $L = \lambda$.
+    \item[\texttt{visualizer.py}:] Centraliza las rutinas de generación gráfica produciendo 11 figuras analíticas con resolución de 300 DPI almacenadas en el directorio \texttt{figuras/}.
+    \item[\texttt{main.py}:] Script principal de orquestación que ejecuta secuencialmente todas las etapas del simulador y actualiza los archivos CSV y las imágenes.
+\end{description}
+
+\section{Algoritmo de Integración Discreta Celda a Celda}
+El transporte del haz a través de la cavidad tipo Álvarez se modela mediante un esquema de integración paso a paso celda por celda. Para una partícula $i$ en la celda $n$, la actualización de su energía cinética y su fase de RF se rige por el par de ecuaciones discretas:
+
+\begin{equation}
+T_{i, n+1} = T_{i, n} + q V_{\text{gap}} \cos(\phi_{i, n})
+\end{equation}
+
+\begin{equation}
+\phi_{i, n+1} = \phi_{i, n} + 2\pi \left( \frac{L_n \cdot f_{\text{RF}}}{\beta_{i, n+1} c} - 1 \right)
+\end{equation}
+
+donde $\beta_{i, n+1}$ se recalcula dinámicamente tras la ganancia de energía en el hueco mediante:
+\begin{equation}
+\beta_{i, n+1} = \sqrt{1 - \left( 1 + \frac{T_{i, n+1}}{m_0 c^2} \right)^{-2}}
+\end{equation}
+
+Este esquema conserva la estructura simpléctica del espacio de fases en el régimen de oscilaciones pequeñas y permite registrar con alta precisión la trayectoria de cada partícula del paquete.
+
+\section{Generación del Paquete de Partículas y Espacio de Fases Inicial}
+Para simular un haz realista, se genera una población de $N = 3000$ protones utilizando distribuciones gaussianas independientes en energía y fase alrededor de la partícula síncrona nominal ($T_0 = 3.0\text{ MeV}$, $\phi_s = -30^\circ$):
+
+\begin{equation}
+T_{i, 0} \sim \mathcal{N}\left(T_0, \sigma_T^2\right), \quad \text{con } \sigma_T = 0.005 \cdot T_0 = 15.0\text{ keV}
+\end{equation}
+\begin{equation}
+\phi_{i, 0} \sim \mathcal{N}\left(\phi_s, \sigma_\phi^2\right), \quad \text{con } \sigma_\phi = 15.0^\circ
+\end{equation}
+
+Se define como criterio de aceptación o captura longitudinal que la partícula finalice el recorrido en la celda 55 permaneciendo dentro de una ventana de fase de $|\phi_{i, 55} - \phi_s| < 60^\circ$.
+
+\section{Metodología de Exportación de Datos y Visualizaciones Analíticas}
+El simulador garantiza la reproducibilidad científica mediante la exportación automatizada de datasets en formato CSV dentro del directorio \texttt{resultados/} utilizando la librería \texttt{pandas}. Asimismo, el módulo \texttt{visualizer.py} genera gráficos vectoriales y matriciales procesados a 300 DPI en \texttt{figuras/}, asegurando la independencia del entorno de ejecución ya sea desde la terminal (\texttt{main.py}) o mediante el cuaderno interactivo \texttt{P19-Acelerador-lineal.ipynb}.

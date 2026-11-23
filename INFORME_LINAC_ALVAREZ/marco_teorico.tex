@@ -1,0 +1,47 @@
+
+% ==============================================================================
+% CAPÍTULO 1: INTRODUCCIÓN Y MARCO TEÓRICO
+% ==============================================================================
+\chapter{Marco Teórico}
+
+
+\section{Planteamiento del Problema y Justificación}
+El diseño de un LINAC tipo Álvarez requiere garantizar tres condiciones físicas simultáneas:
+1. **Sincronismo Geométrico:** La longitud de cada celda debe coincidir exactamente con la distancia recorrida por la partícula síncrona en un período de la onda de RF ($L_n = \beta_n \lambda$).
+2. **Estabilidad Longitudinal de Fase:** Las partículas desfasadas respecto al centro de masa del paquete deben experimentar una fuerza restauradora que limite el crecimiento de la emiteza longitudinal.
+3. **Tolerancia Operativa de RF:** El acelerador debe ser tolerante a pequeñas desviaciones térmicas y de frecuencia en la fuente de potencia de RF sin perder la captura del haz.
+
+Este trabajo desarrolla un simulador discreto en Python que resuelve las ecuaciones de transporte relativista celda a celda, generando un marco riguroso para analizar la emiteza, la tasa de aceleración espacial y las ventanas de tolerancia operacional del acelerador.
+\section{Fundamentos Físicos y Formulación Matemática}
+
+\subsection{Cinemática Relativista de Partículas Cargadas}
+Para un protón con energía en reposo $m_0 c^2 = 938.272\text{ MeV}$, la energía cinética $T_n$ en la celda $n$ determina el factor de Lorentz $\gamma_n$ y la velocidad adimensional $\beta_n$:
+\begin{equation}
+\gamma_n = 1 + \frac{T_n}{m_0 c^2}
+\end{equation}
+\begin{equation}
+\beta_n = \sqrt{1 - \frac{1}{\gamma_n^2}} = \frac{\sqrt{T_n (T_n + 2 m_0 c^2)}}{T_n + m_0 c^2}
+\end{equation}
+
+\subsection{Condición de Sincronismo y Longitud de Celda}
+En una cavidad resonante que oscila a frecuencia angular $\omega = 2\pi f_{\text{RF}}$ con longitud de onda en el vacío $\lambda = c / f_{\text{RF}}$, el tiempo transcurrido mientras la partícula cruza una celda de longitud $L_n$ debe ser exactamente igual a un período de RF ($\tau = 1/f_{\text{RF}}$):
+\begin{equation}
+\Delta t_n = \frac{L_n}{\beta_n c} = \frac{1}{f_{\text{RF}}} \implies L_n = \beta_n \lambda
+\end{equation}
+
+\subsection{Ganancia de Energía y Estabilidad de Fase}
+La ganancia de energía cinética de la partícula síncrona al atravesar el hueco de aceleración (\textit{gap}) de la celda $n$ está dada por:
+\begin{equation}
+\Delta T_n = q V_{\text{gap}} \cos(\phi_s)
+\end{equation}
+donde $V_{\text{gap}} = 1.0\text{ MV}$ es la tensión de pico y $\phi_s = -30^\circ$ es la fase síncrona. La elección de $\phi_s < 0$ garantiza la estabilidad del pozo de potencial síncrono. Una partícula con una desviación de fase $\Delta\phi_i = \phi_i - \phi_s$ experimenta una fuerza restauradora dada por la ecuación diferencial de oscilación longitudinal:
+\begin{equation}
+\frac{d}{dn} \left( m_0 c^2 \beta_n^3 \gamma_n^3 \frac{d(\Delta\phi)}{dn} \right) + 2\pi q V_{\text{gap}} \sin(\phi_s) \Delta\phi = 0
+\end{equation}
+
+\subsection{Definición de Campos Eléctricos y Atenuación Geométrica}
+Definimos el gradiente medio pico por celda $E_{0,n}$ y el gradiente de aceleración síncrono efectivo $E_{\text{acc},n}$ como:
+\begin{equation}
+E_{0,n} = \frac{q V_{\text{gap}}}{L_n}, \quad E_{\text{acc},n} = \frac{\Delta T_n}{L_n} = E_{0,n} \cos(\phi_s)
+\end{equation}
+A medida que $\beta_n$ aumenta y las celdas se expanden en la dirección longitudinal $z$, el campo efectivo por unidad de longitud decae de forma inversamente proporcional a $L_n$.

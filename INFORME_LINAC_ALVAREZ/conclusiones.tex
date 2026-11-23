@@ -1,0 +1,20 @@
+% ==============================================================================
+% CAPÍTULO 7: CONCLUSIONES Y TRABAJO FUTURO
+% ==============================================================================
+\chapter{Conclusiones y Trabajo Futuro}
+
+\section{Conclusiones Principales}
+Mediante el desarrollo del simulador discreto modular en Python, se caracterizó integralmente el comportamiento dinámico, la geometría y la estabilidad longitudinal de un acelerador lineal tipo Álvarez de 55 celdas. Los hallazgos principales se sintetizan a continuación:
+
+\begin{enumerate}
+    \item \textbf{Diseño y Geometría Síncrona:} Se verificó el crecimiento sostenido de las celdas síncronas de $L_1 = 7.70\text{ cm}$ ($\beta_1 = 0.0905$) a $L_{55} = 26.89\text{ cm}$ ($\beta_{55} = 0.3159$), alcanzando la energía de extracción nominal de $50.63\text{ MeV}$ a lo largo de una longitud acumulada total de cavidad de $z_{\text{total}} = 10.59\text{ m}$.
+    \item \textbf{Atenuación de Campo Eléctrico:} Se demostró que para un voltaje fijo de hueco ($V_{\text{gap}} = 1.0\text{ MV}$), el gradiente síncrono efectivo $E_{\text{acc}}$ decae inversamente con la longitud de celda desde $11.24\text{ MV/m}$ en la inyección hasta $3.22\text{ MV/m}$ en la extracción.
+    \item \textbf{Conservación de Liouville y Amortiguamiento Adiabático:} El seguimiento multipartícula ($N = 3000$) confirmó la compresión adiabática de la dispersión de fase desde $\sigma_\phi = 15.19^\circ$ hasta $5.27^\circ$, compensada por la expansión en dispersión energética de $\sigma_T = 15.15\text{ keV}$ a $284.47\text{ keV}$, preservando el área en el espacio de fases síncrono.
+    \item \textbf{Ventana de Tolerancia de RF:} Se delimitó una región de operación segura ante descalces de frecuencia de $\epsilon_f \le 1.0\%$ ($\Delta f \le \pm 3.52\text{ MHz}$), manteniendo capturas superiores al $98.2\%$. Errores superiores al $2.0\%$ desencadenan el colapso síncrono del haz.
+    \item \textbf{Dinámica Comparativa:} Se justificó la necesidad geométrica de utilizar celdas variables para protones no relativistas frente a estructuras de celdas constantes de $L = \lambda = 0.8512\text{ m}$ con tasa de ganancia uniforme de $dT/dz = 1.175\text{ MeV/m}$ para electrones ultrarelativistas ($\beta \approx 1.0$).
+\end{enumerate}
+
+\section{Perspectivas de Trabajo Futuro}
+1. Incorporar las ecuaciones de envolvente transversal (focalización cuadrupolar FODO) para evaluar las resonancias entre emiteza longitudinal y transversal.
+2. Simular el comportamiento no lineal ante fluctuaciones de amplitud de voltaje RF ($\Delta V_{\text{gap}}$) combinadas con errores de fase ($\Delta\phi$).
+3. Modelar la interacción carga de espacio (\textit{space charge}) mediante métodos partícula-malla (PIC - *Particle-In-Cell*) para haces de alta intensidad de corriente.

@@ -1,0 +1,36 @@
+\begin{thebibliography}{5}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Wille(2000)]{wille2000physics}
+Klaus Wille.
+\newblock \emph{The Physics of Particle Accelerators: An Introduction}.
+\newblock Oxford University Press, Oxford, 2000.
+
+\bibitem[Lee(2018)]{lee2018accelerator}
+Shyh-Yuan Lee.
+\newblock \emph{Accelerator Physics}.
+\newblock World Scientific Publishing, 4th edition, 2018.
+
+\bibitem[Wangler(2008)]{wangler2008rf}
+Thomas~P. Wangler.
+\newblock \emph{RF Linear Accelerators}.
+\newblock Wiley-VCH, 2nd edition, 2008.
+
+\bibitem[Alvarez et~al.(1955)Alvarez, Bradner, Franck, Gordon, Gow, Marshall,
+  Oppenheimer, Panofsky, Richman, and Woodyard]{alvarez1955berkeley}
+Luis~W. Alvarez, Hugh Bradner, Jack~V. Franck, H.~Gordon, J.~D. Gow, L.~C.
+  Marshall, F.~Oppenheimer, W.~K.~H. Panofsky, C.~Richman, and J.~R. Woodyard.
+\newblock Berkeley proton linear accelerator.
+\newblock \emph{Review of Scientific Instruments}, 26\penalty0 (2):\penalty0
+  111--133, 1955.
+
+\bibitem[Chao and Tigner(2013)]{chao2013handbook}
+Alexander~Wu Chao and Maury Tigner.
+\newblock \emph{Handbook of Accelerator Physics and Engineering}.
+\newblock World Scientific Publishing, 2nd edition, 2013.
+
+\end{thebibliography}

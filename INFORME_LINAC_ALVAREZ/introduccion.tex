@@ -1,0 +1,24 @@
+
+\chapter*{Introducción}
+\addcontentsline{toc}{chapter}{Introducción}
+Los aceleradores lineales de partículas (\textit{LINACs}) son instrumentos fundamentales en la física nuclear, física de altas energías y aplicaciones médicas e industriales. A diferencia de los aceleradores circulares (como los sincrotrones), los LINACs aceleran partículas cargadas a lo largo de una trayectoria rectilínea única, eliminando las pérdidas por radiación de sincrotrón que sufren las partículas desviadas magnéticamente.
+
+En el régimen de velocidades bajas a intermedias ($\beta = v/c < 0.4$), como en la aceleración inicial de protones e iones pesados, las partículas no son ultrarelativistas. Esto exige que la geometría de la cavidad aceleradora aumente progresivamente de tamaño para mantenerse sincronizada con el incremento de velocidad del haz. La cavidad tipo Álvarez, desarrollada por Luis Walter Alvarez en 1946, resuelve este problema utilizando tubos de deriva metálicos (\textit{drift tubes}) dentro de una cavidad resonante de radiofrecuencia (RF) operando en el modo electromagnético $\text{TM}_{010}$.
+
+
+
+\chapter*{Objetivos}
+\addcontentsline{toc}{chapter}{Objetivos}
+
+\section*{Objetivo General}
+Diseñar y simular la dinámica longitudinal de un acelerador lineal de protones tipo Álvarez de $55$ celdas operando a $352.2\text{ MHz}$, evaluando la evolución del paquete en el espacio de fases, la atenuación del campo eléctrico y la tolerancia a errores de frecuencia RF mediante un marco modular en Python.
+
+\section*{Objetivos Específicos}
+\begin{enumerate}
+    \item Calcular la geometría discreta de $55$ celdas síncronas para acelerar protones desde $3.0\text{ MeV}$ hasta $50.0\text{ MeV}$ con fase síncrona nominal $\phi_s = -30^\circ$.
+    \item Modelar la evolución del gradiente pico nominal $E_0$ y el gradiente síncrono efectivo $E_{\text{acc}}$ en $\text{MV/m}$ a lo largo de la distancia real $z$.
+    \item Realizar el seguimiento dinámico de $N = 3000$ partículas en el plano $(\Delta\phi, \Delta T)$ para verificar el Teorema de Liouville y el amortiguamiento adiabático.
+    \item Determinar la ventana de tolerancia operativa ante errores de frecuencia de RF ($\epsilon_f$) entre $0\%$ y $4\%$.
+    \item Comparar la eficiencia de aceleración por metro ($dT/dz$) de los protones frente a un haz de electrones ultrarelativistas en celdas de longitud constante.
+\end{enumerate}
+    

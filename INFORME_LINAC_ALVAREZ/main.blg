@@ -1,0 +1,66 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+Reallocating 'name_of_file' (item size: 1) to 12 items.
+A level-1 auxiliary file: Resumen.aux
+Reallocating 'name_of_file' (item size: 1) to 17 items.
+A level-1 auxiliary file: Introduccion.aux
+Reallocating 'name_of_file' (item size: 1) to 18 items.
+A level-1 auxiliary file: marco_teorico.aux
+Reallocating 'name_of_file' (item size: 1) to 30 items.
+A level-1 auxiliary file: metodologia_computacional.aux
+Reallocating 'name_of_file' (item size: 1) to 22 items.
+A level-1 auxiliary file: diseno_geometrico.aux
+Reallocating 'name_of_file' (item size: 1) to 28 items.
+A level-1 auxiliary file: dinamica_multiparticula.aux
+Reallocating 'name_of_file' (item size: 1) to 29 items.
+A level-1 auxiliary file: analisis_de_sensibilidad.aux
+Reallocating 'name_of_file' (item size: 1) to 27 items.
+A level-1 auxiliary file: protones_vs_electrones.aux
+Reallocating 'name_of_file' (item size: 1) to 17 items.
+A level-1 auxiliary file: conclusiones.aux
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+The style file: unsrtnat.bst
+Reallocating 'name_of_file' (item size: 1) to 12 items.
+Database file #1: referencias.bib
+You've used 5 entries,
+            2481 wiz_defined-function locations,
+            589 strings with 5267 characters,
+and the built_in function-call counts, 1729 in all, are:
+= -- 126
+> -- 99
+< -- 4
++ -- 40
+- -- 30
+* -- 124
+:= -- 296
+add.period$ -- 15
+call.type$ -- 5
+change.case$ -- 9
+chr.to.int$ -- 5
+cite$ -- 5
+duplicate$ -- 95
+empty$ -- 159
+format.name$ -- 37
+if$ -- 355
+int.to.chr$ -- 1
+int.to.str$ -- 6
+missing$ -- 9
+newline$ -- 33
+num.names$ -- 15
+pop$ -- 51
+preamble$ -- 1
+purify$ -- 5
+quote$ -- 0
+skip$ -- 52
+stack$ -- 0
+substring$ -- 35
+swap$ -- 10
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 23
+warning$ -- 0
+while$ -- 12
+width$ -- 0
+write$ -- 72
