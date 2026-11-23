@@ -1,0 +1,134 @@
+\documentclass[12pt,a4paper]{report}
+
+% Codificación y lenguaje
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+
+% Paquetes de citas y referencias
+\usepackage[numbers,sort&compress]{natbib} % Para citas tipo [1-3] en lugar de [1],[2],[3]
+\usepackage{hyperref}
+
+% Paquetes matemáticos y de formato
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\graphicspath{{figuras/}} % Permite buscar imágenes en la carpeta raíz "figuras/"
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{caption}
+
+% Configuración de Márgenes para Trabajo de Grado / Tesis
+\geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=2.5cm}
+
+% Interlineado 1.5 para lectura académica
+\onehalfspacing
+
+% Configuración de hipervínculos
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    pdftitle={Simulación Dinámica y Diseño de un Acelerador Lineal tipo Álvarez},
+    pdfauthor={Erick Mateo García Díaz}
+}
+
+% Formato de títulos de capítulos
+\usepackage{titlesec}
+
+% Formato compacto para Capítulos (Reducción de \Huge a \Large y menor espacio vertical)
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries\centering}
+  {\chaptertitlename\ \thechapter}
+  {6pt}
+  {\large\bfseries}
+
+% Ajuste de espacios verticales antes y después de cada capítulo
+% \titlespacing*{comando}{izquierda}{espacio_arriba}{espacio_abajo}
+\titlespacing*{\chapter}{0pt}{-10pt}{15pt}
+
+% Reducción proporcional para Secciones y Subsecciones
+\titleformat{\section}
+  {\normalfont\large\bfseries}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{9pt}{6pt}
+
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+
+\begin{document}
+
+% ==============================================================================
+% PORTADA INSTITUCIONAL (UNIVERSIDAD DE NARIÑO)
+% ==============================================================================
+\begin{titlepage}
+    \centering
+    \vspace*{0.5cm}
+    {\bfseries\Large UNIVERSIDAD DE NARIÑO \par}
+    \vspace{0.3cm}
+    {\bfseries\large FACULTAD DE CIENCIAS EXACTAS Y NATURALES \par}
+    \vspace{0.2cm}
+    {\bfseries\large DEPARTAMENTO DE FÍSICA \par}
+    \vspace{1.8cm}
+    
+    {\huge\bfseries Simulación Dinámica y Diseño de un Acelerador Lineal (LINAC tipo Álvarez) \par}
+    \vspace{0.5cm}
+    {\large Trabajo de Investigación y Modelado Computacional \par}
+    \vspace{2.0cm}
+    
+    {\large\textbf{Autores:}\par}
+    {\large Erick Mateo García Díaz \par}
+    \vspace{1.2cm}
+    
+    {\large\textbf{Asignatura:}\par}
+    {Física Computacional 2 \par}
+    \vspace{2.0cm}
+    
+    {\large San Juan de Pasto, Colombia \par}
+    {\large \today \par}
+\end{titlepage}
+
+
+% ==============================================================================
+% PÁGINAS PRELIMINARES
+% ==============================================================================
+\pagenumbering{roman}
+
+\include{Resumen}
+\include{Introduccion}
+
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
+
+%=============================================================================
+%PAGINAS DE CONTENIDO PRINCIPAL
+%=============================================================================
+
+\pagenumbering{arabic}
+
+\include{marco_teorico}
+\include{metodologia_computacional}
+\include{diseno_geometrico}
+\include{dinamica_multiparticula}
+\include{analisis_de_sensibilidad}
+\include{protones_vs_electrones}
+\include{conclusiones}
+
+
+% ==============================================================================
+% REFERENCIAS BIBLIOGRÁFICAS
+% ==============================================================================
+\nocite{*} % Incluye todas las entradas de referencias.bib en el PDF
+\bibliographystyle{unsrtnat}
+\bibliography{referencias}
+\end{document}

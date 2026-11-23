@@ -7,13 +7,19 @@ __pycache__/
 *.pyc
 
 # Archivos generados 
-INFORME_LINAC_ALVAREZ/
+
+
+
+
+INFORME_LINAC_ALVAREZ/*.log
+INFORME_LINAC_ALVAREZ/*.toc
+INFORME_LINAC_ALVAREZ/*.lof
+INFORME_LINAC_ALVAREZ/*.lot
+INFORME_LINAC_ALVAREZ/*.out
+INFORME_LINAC_ALVAREZ/*.bbl
+INFORME_LINAC_ALVAREZ/*.blg
+INFORME_LINAC_ALVAREZ/*.fdb_latexmk
+INFORME_LINAC_ALVAREZ/*.fls
+INFORME_LINAC_ALVAREZ/*.synctex.gz
+
 *.aux
-*.log
-*.out
-*.toc
-*.synctex.gz
-*.bbl
-*.blg
-*.fls
-*.fdb_latexmk
