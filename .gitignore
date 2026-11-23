@@ -6,6 +6,14 @@ venv/
 __pycache__/
 *.pyc
 
-# Archivos generados (opcional si se generen al ejecutar)
-#figuras/
-#*.png
+# Archivos generados 
+INFORME_LINAC_ALVAREZ/
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
