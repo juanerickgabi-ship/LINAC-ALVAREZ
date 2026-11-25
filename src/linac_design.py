@@ -93,10 +93,7 @@ if __name__ == "__main__":
     )
     print("=========================================")
 
-import csv
-import os
-import numpy as np
-from physics import M_PROTON_MEV, get_beta, get_gamma
+
 
 
 def export_design_to_csv(

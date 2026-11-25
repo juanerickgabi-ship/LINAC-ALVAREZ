@@ -17,10 +17,10 @@ def plot_phase_space(
     filename: str = "fig_espacio_fases.png",
 ):
     """Grafica la distribución del paquete de partículas en el espacio de fases
-
     longitudinal (Delta T vs Delta phi) comparando la entrada (celda 0) y la
-    salida.
+    salida (celda 55).
     """
+    
     phi_s_rad = np.radians(phi_s_deg)
 
     # 1. Desviaciones de fase (grados) y energía (keV) en la entrada y salida[cite: 15, 19]
@@ -84,8 +84,7 @@ def plot_phase_space(
     ax2.legend(loc="upper right")
 
     plt.suptitle(
-        rf"Espacio de Fases Longitudinal (LINAC Álvarez, $\phi_s = {phi_s_deg}^\circ$)"
-        f" {phi_s_deg}^\circ$)",
+        rf"Espacio de Fases Longitudinal (LINAC Álvarez, $\phi_s = {phi_s_deg}^\circ$)",
         fontsize=13,
         fontweight="bold",
     )
@@ -109,7 +108,7 @@ def plot_cell_lengths(
     fig, ax = plt.subplots(figsize=(7, 4.5))
 
     cells = np.arange(1, len(cell_lengths) + 1)
-    lengths_cm = cell_lengths * 100.0  # Convertir a cm[cite: 18]
+    lengths_cm = cell_lengths * 100.0  # Convertir a cm
 
     ax.plot(
         cells,
@@ -174,7 +173,7 @@ def plot_electric_field_profile(
     )
 
     ax.set_xlabel("Posición longitudinal $z$ (m)", fontsize=11)
-    ax.set_ylabel("Gradiente de Campo Eléctrico (MV/m)", fontsize=11)
+    ax.set_ylabel("Gradiente de Campo Eléctrico (MeV/m)", fontsize=11)
     ax.set_title(
         "Atenuación Geométrica del Campo Eléctrico vs Distancia Real",
         fontsize=12,
