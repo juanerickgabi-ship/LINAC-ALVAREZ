@@ -86,7 +86,7 @@ def plot_electron_results(hist_T, hist_phi, initial_phases_deg):
                 textcoords="offset points",
                 xytext=(5, -3 if phi_init != 0 else -10),
                 ha="left",
-                fontsize=8.5,
+                fontsize=10,
                 weight="bold",
                 color=colors[i],
             )
@@ -103,24 +103,24 @@ def plot_electron_results(hist_T, hist_phi, initial_phases_deg):
 
     # Configuración Panel 1
     ax1.set_title(
-        "Ganancia de Energía de Electrones", fontsize=11.5, fontweight="bold"
+        "Ganancia de Energía de Electrones", fontsize=14, fontweight="bold"
     )
-    ax1.set_xlabel("Número de celda $n$", fontsize=10.5)
-    ax1.set_ylabel("Energía cinética $T$ (MeV)", fontsize=10.5)
+    ax1.set_xlabel("Número de celda $n$", fontsize=14)
+    ax1.set_ylabel("Energía cinética $T$ (MeV)", fontsize=14)
     ax1.set_xlim(-1, 68)  # Margen para las anotaciones finales
     ax1.grid(True, linestyle=":", alpha=0.6)
-    ax1.legend(loc="upper left", fontsize=9)
+    ax1.legend(loc="upper left", fontsize=10)
 
     # Configuración Panel 2 (Ubicación de leyenda fuera del camino de los datos)
     ax2.set_title(
-        "Deriva de Fase Longitudinal (Congelamiento de Fase)",
-        fontsize=11.5,
+        "Deriva de Fase Longitudinal de Electrones",
+        fontsize=14,
         fontweight="bold",
     )
-    ax2.set_xlabel("Número de celda $n$", fontsize=10.5)
-    ax2.set_ylabel(r"Fase de arrival $\phi$ (grados)", fontsize=10.5)
+    ax2.set_xlabel("Número de celda $n$", fontsize=14)
+    ax2.set_ylabel(r"Fase de arrival $\phi$ (grados)", fontsize=14)
     ax2.grid(True, linestyle=":", alpha=0.6)
-    ax2.legend(loc="upper right", fontsize=9)  # Mover a la derecha
+    ax2.legend(loc="upper right", fontsize=10)  # Mover a la derecha
 
     plt.tight_layout()
 

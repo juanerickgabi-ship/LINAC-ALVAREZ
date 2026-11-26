@@ -45,11 +45,11 @@ def plot_phase_space(
     ax1.axhline(0, color="black", linestyle="--", linewidth=0.8, alpha=0.7)
     ax1.axvline(0, color="black", linestyle="--", linewidth=0.8, alpha=0.7)
     ax1.set_title(
-        r"Entrada ($T_0 = 3.0$ MeV)", fontsize=12, fontweight="bold"
+        r"Entrada ($T_0 = 3.0$ MeV)", fontsize=16, fontweight="bold"
     )
-    ax1.set_xlabel(r"Desviación de fase $\Delta\phi$ (grados)", fontsize=11)
+    ax1.set_xlabel(r"Desviación de fase $\Delta\phi$ (grados)", fontsize=14)
     ax1.set_ylabel(
-        r"Desviación de energía $\Delta T$ (keV)", fontsize=11
+        r"Desviación de energía $\Delta T$ (keV)", fontsize=14
     ) 
     ax1.set_xlim(-60, 60)
     ax1.set_ylim(-1000, 1000)
@@ -73,19 +73,19 @@ def plot_phase_space(
         linestyle=":",
         linewidth=1.2,
         label=r"Captura ($\pm 60^\circ$)",
-    )  #[cite: 15]
+    )
     ax2.axvline(60, color="darkgray", linestyle=":", linewidth=1.2)
     ax2.set_title(
-        r"Salida ($T_{final} \approx 50.0$ MeV)", fontsize=12, fontweight="bold"
+        r"Salida ($T_{final} \approx 50.0$ MeV)", fontsize=16, fontweight="bold"
     )  #[cite: 10]
-    ax2.set_xlabel(r"Desviación de fase $\Delta\phi$ (grados)", fontsize=11)
+    ax2.set_xlabel(r"Desviación de fase $\Delta\phi$ (grados)", fontsize=14)
     ax2.set_xlim(-60, 60)
     ax2.grid(True, linestyle=":", alpha=0.6)
     ax2.legend(loc="upper right")
 
     plt.suptitle(
         rf"Espacio de Fases Longitudinal (LINAC Álvarez, $\phi_s = {phi_s_deg}^\circ$)",
-        fontsize=13,
+        fontsize=16,
         fontweight="bold",
     )
     plt.tight_layout()
@@ -118,16 +118,16 @@ def plot_cell_lengths(
         linewidth=2,
         markersize=4,
         label=r"$L_n = \beta_{n}\lambda$",
-    )  #[cite: 6]
+    )
     ax.set_title(
-        "Geometría de Celdas de Deriva (Drift Tubes)",
-        fontsize=12,
+        r"Geometría de Celdas de Deriva (Drift Tubes)",
+        fontsize=16,
         fontweight="bold",
     )
-    ax.set_xlabel("Número de celda $n$", fontsize=11)
-    ax.set_ylabel("Longitud de celda $L_n$ (cm)", fontsize=11)
+    ax.set_xlabel("Número de celda $n$", fontsize=14)
+    ax.set_ylabel("Longitud de celda $L_n$ (cm)", fontsize=14)
     ax.grid(True, linestyle=":", alpha=0.6)
-    ax.legend(loc="upper left")
+    ax.legend(loc="upper left", fontsize=12)
 
     plt.tight_layout()
 
